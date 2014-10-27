@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-
    <extension
+         point="org.eclipse.ui.contexts">
+         <context 
+                name="Editing Fitnesse"
+                description="Editing Fitnesse Context"
+                parentId="org.eclipse.ui.textEditorScope"
+                id="fitedit.editors.fitnesseEditorScope">
+         </context>
+   </extension>
+   <extension
+         name="Ed"
          point="org.eclipse.ui.editors">
       <editor
             class="fitedit.editors.FitnesseEditor"
@@ -47,13 +56,19 @@
       <command
             categoryId="fitedit.commands.category"
             id="fitedit.command.format"
-            name="FitNesse Format">
+            name="Format">
       </command>
       <command
             categoryId="fitedit.commands.category"
             id="fitedit.command.openBrowser"
             name="Open In Browser">
       </command>
+      <command
+            categoryId="fitedit.commands.category"
+            description="Toggle Comment"
+            id="fitedit.command.comment"
+            name="Toggle Comment">
+      </command>            
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -70,6 +85,10 @@
             commandId="fitedit.command.format">
       </handler>
       <handler
+            class="fitedit.handlers.CommentHandler"
+            commandId="fitedit.command.comment">
+      </handler>
+      <handler
             class="fitedit.handlers.OpenBrowserHandler"
             commandId="fitedit.command.openBrowser">
       </handler>
@@ -78,9 +97,20 @@
          point="org.eclipse.ui.bindings">
       <key
             commandId="fitedit.commands.openFitnesseCommand"
-            contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="Ctrl+Shift+Z">
+      </key>
+      <key
+            commandId="fitedit.command.comment"
+            contextId="fitedit.editors.fitnesseEditorScope"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="Ctrl+Shift+C">
+      </key>
+      <key
+            commandId="fitedit.command.format"
+            contextId="fitedit.editors.fitnesseEditorScope"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="Ctrl+Shift+F">
       </key>
    </extension>
    <extension

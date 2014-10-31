@@ -2,11 +2,11 @@ package fitedit.utils;
 
 import org.eclipse.core.runtime.Status;
 
-import fitedit.Activator;
+import fitedit.FitEditPlugin;
 
 public class LoggingUtil {
 	public static void log(int severity, String msg) {
-		Activator.getDefault().getLog()
-				.log(new Status(severity, Activator.PLUGIN_ID, msg));
+		FitEditPlugin.getDefault().getLog()
+				.log(new Status(severity, FitEditPlugin.PLUGIN_ID, msg));
 	}
 }

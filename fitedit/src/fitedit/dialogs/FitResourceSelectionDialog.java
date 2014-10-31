@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.FilteredItemsSelectionDialog;
 
-import fitedit.Activator;
+import fitedit.FitEditPlugin;
 import fitedit.resource.FitResource;
 import fitedit.resource.FitResourceManager;
 
@@ -29,10 +29,10 @@ public class FitResourceSelectionDialog extends FilteredItemsSelectionDialog {
 
 	@Override
 	protected IDialogSettings getDialogSettings() {
-		IDialogSettings settings = Activator.getDefault().getDialogSettings()
+		IDialogSettings settings = FitEditPlugin.getDefault().getDialogSettings()
 				.getSection("sectoin");
 		if (settings == null) {
-			settings = Activator.getDefault().getDialogSettings()
+			settings = FitEditPlugin.getDefault().getDialogSettings()
 					.addNewSection("section");
 		}
 		return settings;

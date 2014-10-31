@@ -5,7 +5,7 @@ import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
-import fitedit.Activator;
+import fitedit.FitEditPlugin;
 
 /**
  * This class represents a preference page that is contributed to the
@@ -23,7 +23,7 @@ public class FitPreferencePage extends FieldEditorPreferencePage implements
 
 	public FitPreferencePage() {
 		super(GRID);
-		setPreferenceStore(Activator.getDefault().getPreferenceStore());
+		setPreferenceStore(FitEditPlugin.getDefault().getPreferenceStore());
 		setDescription("Preference Page for FitNesse Editor");
 	}
 

@@ -11,7 +11,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
-import fitedit.Activator;
+import fitedit.FitEditPlugin;
 import fitedit.Constants;
 import fitedit.preferences.PreferenceConstants;
 
@@ -85,7 +85,7 @@ public class FitUtil {
 	}
 
 	public static void openFitnesseInBrowser(IResource resource) {
-		String prefix = Activator.getDefault().getPreferenceStore()
+		String prefix = FitEditPlugin.getDefault().getPreferenceStore()
 				.getString(PreferenceConstants.P_URL_PREFIX);
 		String url = prefix
 				+ FitUtil.getFitnesseUrl(resource.getFullPath().toString());

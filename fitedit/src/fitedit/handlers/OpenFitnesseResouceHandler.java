@@ -25,52 +25,41 @@ import fitedit.resource.FitResource;
  * @see org.eclipse.core.commands.AbstractHandler
  */
 public class OpenFitnesseResouceHandler extends AbstractHandler {
-	/**
-	 * The constructor.
-	 */
-	public OpenFitnesseResouceHandler() {
-	}
 
-	/**
-	 * the command has been executed, so extract extract the needed information
-	 * from the application context.
-	 */
-	public Object execute(ExecutionEvent event) throws ExecutionException {
-		IWorkbenchWindow window = HandlerUtil
-				.getActiveWorkbenchWindowChecked(event);
+    /**
+     * the command has been executed, so extract extract the needed information from the application context.
+     */
+    @Override
+    public Object execute(ExecutionEvent event) throws ExecutionException {
+        IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
 
-		FitResourceSelectionDialog dialog = new FitResourceSelectionDialog(
-				window.getShell(), true);
-		dialog.setListLabelProvider(new FitResourceLabelProvider());
-		dialog.setTitle("Open FitNesse");
-		int returnCode = dialog.open();
+        FitResourceSelectionDialog dialog = new FitResourceSelectionDialog(window.getShell(), true);
+        dialog.setListLabelProvider(new FitResourceLabelProvider());
+        dialog.setTitle("Open FitNesse");
+        int returnCode = dialog.open();
 
-		if (returnCode != FitResourceSelectionDialog.OK) {
-			return null;
-		}
+        if (returnCode != FitResourceSelectionDialog.OK) {
+            return null;
+        }
 
-		FitResource r = (FitResource) dialog.getFirstResult();
-		if (r == null) {
-			return null;
-		}
+        FitResource r = (FitResource) dialog.getFirstResult();
+        if (r == null) {
+            return null;
+        }
 
-		IFile file = ResourcesPlugin
-				.getWorkspace()
-				.getRoot()
-				.getFile(
-						new Path(r.getPath() + IPath.SEPARATOR
-								+ Constants.CONTENT_TXT));
-		if (file == null) {
-			return null;
-		}
+        IFile file = ResourcesPlugin.getWorkspace().getRoot()
+                .getFile(new Path(r.getPath() + IPath.SEPARATOR + Constants.CONTENT_TXT));
+        if (file == null) {
+            return null;
+        }
 
-		IWorkbenchPage page = window.getActivePage();
-		try {
-			IDE.openEditor(page, file, true);
-		} catch (PartInitException e) {
-			e.printStackTrace();
-		}
+        IWorkbenchPage page = window.getActivePage();
+        try {
+            IDE.openEditor(page, file, true);
+        } catch (PartInitException e) {
+            e.printStackTrace();
+        }
 
-		return null;
-	}
+        return null;
+    }
 }

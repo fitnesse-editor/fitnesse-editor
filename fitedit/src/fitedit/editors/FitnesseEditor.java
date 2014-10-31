@@ -46,7 +46,7 @@ public class FitnesseEditor extends TextEditor {
     }
 
     @Override
-    public Object getAdapter(Class required) {
+    public Object getAdapter(@SuppressWarnings("rawtypes") Class required) {
 
         // set outline page
         if (IContentOutlinePage.class.equals(required)) {

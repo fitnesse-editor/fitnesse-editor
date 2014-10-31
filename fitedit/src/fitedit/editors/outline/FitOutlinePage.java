@@ -14,67 +14,65 @@ import fitedit.editors.FitnesseEditor;
 
 public class FitOutlinePage extends ContentOutlinePage {
 
-	private FitnesseEditor fitnesseEditor;
-	private IEditorInput editorInput = null;
-	private IDocumentProvider documentProvider = null;
+    private FitnesseEditor fitnesseEditor;
+    private IEditorInput editorInput = null;
+    private IDocumentProvider documentProvider = null;
 
-	public FitOutlinePage(IDocumentProvider documentProvider,
-			FitnesseEditor fitnesseEditor) {
-		this.documentProvider = documentProvider;
-		this.fitnesseEditor = fitnesseEditor;
-	}
+    public FitOutlinePage(IDocumentProvider documentProvider, FitnesseEditor fitnesseEditor) {
+        this.documentProvider = documentProvider;
+        this.fitnesseEditor = fitnesseEditor;
+    }
 
-	public void setInput(IEditorInput editorInput) {
-		this.editorInput = editorInput;
-	}
+    public void setInput(IEditorInput editorInput) {
+        this.editorInput = editorInput;
+    }
 
-	@Override
-	public void createControl(Composite parent) {
-		super.createControl(parent);
+    @Override
+    public void createControl(Composite parent) {
+        super.createControl(parent);
 
-		TreeViewer viewer = getTreeViewer();
-		viewer.setContentProvider(new OutlineContentProvider(documentProvider, fitnesseEditor));
-		viewer.setLabelProvider(new OutlineLabelProvider());
-		viewer.addSelectionChangedListener(this);
-		viewer.setInput(editorInput);
-	}
+        TreeViewer viewer = getTreeViewer();
+        viewer.setContentProvider(new OutlineContentProvider(documentProvider, fitnesseEditor));
+        viewer.setLabelProvider(new OutlineLabelProvider());
+        viewer.addSelectionChangedListener(this);
+        viewer.setInput(editorInput);
+    }
 
-	@Override
-	public void selectionChanged(SelectionChangedEvent event) {
-		super.selectionChanged(event);
+    @Override
+    public void selectionChanged(SelectionChangedEvent event) {
+        super.selectionChanged(event);
 
-		ISelection selection = event.getSelection();
-		if (selection.isEmpty()) {
-			return;
-		}
+        ISelection selection = event.getSelection();
+        if (selection.isEmpty()) {
+            return;
+        }
 
-		SegmentTree tree = (SegmentTree) ((IStructuredSelection) selection)
-				.getFirstElement();
-		if (tree == null || tree.position == null) {
-			return;
-		}
+        SegmentTree tree = (SegmentTree) ((IStructuredSelection) selection).getFirstElement();
+        if (tree == null || tree.position == null) {
+            return;
+        }
 
-		int start = tree.position.getOffset();
-		int length = tree.position.getLength();
-		try {
-			fitnesseEditor.setHighlightRange(start, length, true);
-		} catch (IllegalArgumentException x) {
-			// Do Nothing
-		}
-	}
+        int start = tree.position.getOffset();
+        int length = tree.position.getLength();
+        try {
+            fitnesseEditor.setHighlightRange(start, length, true);
+        } catch (IllegalArgumentException x) {
+            // Do Nothing
+        }
+    }
 
-	public void update() {
-		TreeViewer viewer = getTreeViewer();
-		if (viewer == null) {
-			return;
-		}
-		
-		Control control = viewer.getControl();
-		if (control != null && !control.isDisposed()) {
-			control.setRedraw(false);
-			viewer.setInput(editorInput);
-			viewer.expandAll();
-			control.setRedraw(true);
-		}
-	}
+    public void update() {
+        TreeViewer viewer = getTreeViewer();
+        if (viewer == null) {
+            return;
+        }
+
+        Control control = viewer.getControl();
+        if (control != null && !control.isDisposed()) {
+            control.setRedraw(false);
+            viewer.setInput(editorInput);
+            viewer.expandAll();
+            control.setRedraw(true);
+        }
+    }
 }

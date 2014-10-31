@@ -9,29 +9,29 @@ import fitedit.utils.FitUtil;
 
 public class OpenBrowserAction implements IActionDelegate {
 
-	/**
-	 * Latest selected resource.
-	 */
-	ISelection selection = null;
+    /**
+     * Latest selected resource.
+     */
+    ISelection selection = null;
 
-	@Override
-	public void run(IAction action) {
-		if (selection == null) {
-			return;
-		}
+    @Override
+    public void run(IAction action) {
+        if (selection == null) {
+            return;
+        }
 
-		IResource resource = FitUtil.getResource(selection);
+        IResource resource = FitUtil.getResource(selection);
 
-		if (resource == null) {
-			return;
-		}
+        if (resource == null) {
+            return;
+        }
 
-		FitUtil.openFitnesseInBrowser(resource);
-	}
+        FitUtil.openFitnesseInBrowser(resource);
+    }
 
-	@Override
-	public void selectionChanged(IAction action, ISelection selection) {
-		this.selection = selection;
-	}
+    @Override
+    public void selectionChanged(IAction action, ISelection selection) {
+        this.selection = selection;
+    }
 
 }

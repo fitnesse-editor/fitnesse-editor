@@ -10,15 +10,10 @@ import fitedit.FitEditPlugin;
  */
 public class PreferenceInitializer extends AbstractPreferenceInitializer {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer#initializeDefaultPreferences()
-	 */
-	public void initializeDefaultPreferences() {
-		IPreferenceStore store = FitEditPlugin.getDefault().getPreferenceStore();
-		store.setDefault(PreferenceConstants.P_URL_PREFIX,
-				"http://localhost:8080/");
-	}
+    @Override
+    public void initializeDefaultPreferences() {
+        IPreferenceStore store = FitEditPlugin.getDefault().getPreferenceStore();
+        store.setDefault(PreferenceConstants.P_URL_PREFIX, "http://localhost:8080/");
+    }
 
 }

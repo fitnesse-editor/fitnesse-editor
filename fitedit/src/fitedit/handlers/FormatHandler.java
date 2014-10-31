@@ -10,16 +10,15 @@ import org.eclipse.ui.handlers.HandlerUtil;
 
 public class FormatHandler extends AbstractHandler {
 
-	@Override
-	public Object execute(ExecutionEvent event) throws ExecutionException {
-		IEditorPart editor = HandlerUtil.getActiveEditor(event);
+    @Override
+    public Object execute(ExecutionEvent event) throws ExecutionException {
+        IEditorPart editor = HandlerUtil.getActiveEditor(event);
 
-		ITextOperationTarget operationTarget = (ITextOperationTarget) editor
-				.getAdapter(ITextOperationTarget.class);
+        ITextOperationTarget operationTarget = (ITextOperationTarget) editor.getAdapter(ITextOperationTarget.class);
 
-		operationTarget.doOperation(ISourceViewer.FORMAT);
+        operationTarget.doOperation(ISourceViewer.FORMAT);
 
-		return null;
-	}
+        return null;
+    }
 
 }

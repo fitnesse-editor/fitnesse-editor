@@ -17,20 +17,19 @@ import fitedit.utils.FitUtil;
  */
 public class OpenBrowserHandler extends AbstractHandler {
 
-	/**
-	 * the command has been executed, so extract extract the needed information
-	 * from the application context.
-	 */
-	public Object execute(ExecutionEvent event) throws ExecutionException {
-		IResource resource = ResourceUtil.getResource(HandlerUtil
-				.getActiveEditor(event).getEditorInput());
+    /**
+     * the command has been executed, so extract extract the needed information from the application context.
+     */
+    @Override
+    public Object execute(ExecutionEvent event) throws ExecutionException {
+        IResource resource = ResourceUtil.getResource(HandlerUtil.getActiveEditor(event).getEditorInput());
 
-		if (resource == null) {
-			return null;
-		}
+        if (resource == null) {
+            return null;
+        }
 
-		FitUtil.openFitnesseInBrowser(resource);
+        FitUtil.openFitnesseInBrowser(resource);
 
-		return null;
-	}
+        return null;
+    }
 }

@@ -11,29 +11,29 @@ import org.eclipse.jface.text.Position;
  */
 class SegmentTree {
 
-	static enum NodeType {
-		TABLE, HEADLINE, FOLDING, DEFAULT
-	}
+    static enum NodeType {
+        TABLE, HEADLINE, FOLDING, DEFAULT
+    }
 
-	public SegmentTree parent;
-	public List<SegmentTree> children = new ArrayList<SegmentTree>();
+    public SegmentTree parent;
+    public List<SegmentTree> children = new ArrayList<SegmentTree>();
 
-	public String matched;
-	public String args;
-	public Position position;
-	public NodeType nodeType;
+    public String matched;
+    public String args;
+    public Position position;
+    public NodeType nodeType;
 
-	public SegmentTree(SegmentTree parent, NodeType nodeType, String matched, String args,
-			Position position) {
-		this.parent = parent;
-		this.nodeType = nodeType;
-		this.matched = matched;
-		this.args = args;
-		this.position = position;
-	}
+    public SegmentTree(SegmentTree parent, NodeType nodeType, String matched, String args, Position position) {
+        this.parent = parent;
+        this.nodeType = nodeType;
+        this.matched = matched;
+        this.args = args;
+        this.position = position;
+    }
 
-	public String toString() {
-		return args;
-	}
+    @Override
+    public String toString() {
+        return args;
+    }
 
 }

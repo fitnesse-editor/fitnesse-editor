@@ -10,12 +10,12 @@ import fitedit.editors.FitnesseEditor;
 public class CommentHandler extends AbstractHandler {
     @Override
     public Object execute(ExecutionEvent event) throws ExecutionException {
-        
+
         FitnesseEditor editor = (FitnesseEditor) HandlerUtil.getActiveEditor(event);
         TextEditorAction action = (TextEditorAction) editor.getAction("comment");
         action.update();
         action.run();
-        
+
         return null;
     }
 }

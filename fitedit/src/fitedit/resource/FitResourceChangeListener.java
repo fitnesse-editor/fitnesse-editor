@@ -13,67 +13,64 @@ import org.eclipse.core.runtime.CoreException;
 
 public class FitResourceChangeListener implements IResourceChangeListener {
 
-	FitIndexRefresher refresher;
+    FitIndexRefresher refresher;
 
-	public FitResourceChangeListener() {
-		refresher = new FitIndexRefresher();
-	}
+    public FitResourceChangeListener() {
+        refresher = new FitIndexRefresher();
+    }
 
-	@Override
-	public void resourceChanged(IResourceChangeEvent event) {
-		try {
-			event.getDelta().accept(refresher);
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
-	}
+    @Override
+    public void resourceChanged(IResourceChangeEvent event) {
+        try {
+            event.getDelta().accept(refresher);
+        } catch (CoreException e) {
+            e.printStackTrace();
+        }
+    }
 
-	class FitIndexRefresher implements IResourceDeltaVisitor {
+    class FitIndexRefresher implements IResourceDeltaVisitor {
 
-		final List<Integer> TARGET_CHANGES = Arrays.asList(
-				IResourceDelta.ADDED, IResourceDelta.REMOVED);
+        final List<Integer> TARGET_CHANGES = Arrays.asList(IResourceDelta.ADDED, IResourceDelta.REMOVED);
 
-		/**
-		 * Returns: true if the resource delta's children should be visited;
-		 * false if they should be skipped.
-		 */
-		@Override
-		public boolean visit(IResourceDelta delta) throws CoreException {
-			switch (delta.getKind()) {
-			case IResourceDelta.ADDED:
-			case IResourceDelta.REMOVED:
-				processResource(delta);
-				break;
-			default:
-				break;
-			}
+        /**
+         * Returns: true if the resource delta's children should be visited; false if they should be skipped.
+         */
+        @Override
+        public boolean visit(IResourceDelta delta) throws CoreException {
+            switch (delta.getKind()) {
+            case IResourceDelta.ADDED:
+            case IResourceDelta.REMOVED:
+                processResource(delta);
+                break;
+            default:
+                break;
+            }
 
-			return true;
-		}
+            return true;
+        }
 
-		private void processResource(IResourceDelta delta) {
-			IResource resource = delta.getResource();
-			if (resource == null) {
-				return;
-			}
+        private void processResource(IResourceDelta delta) {
+            IResource resource = delta.getResource();
+            if (resource == null) {
+                return;
+            }
 
-			if (!FitResourceManager.isFitResouce(resource)) {
-				return;
-			}
+            if (!FitResourceManager.isFitResouce(resource)) {
+                return;
+            }
 
-			IContainer parent = resource.getParent();
+            IContainer parent = resource.getParent();
 
-			FitResource r = new FitResource(parent.getName(), parent
-					.getFullPath().toString());
+            FitResource r = new FitResource(parent.getName(), parent.getFullPath().toString());
 
-			if (delta.getKind() == IResourceDelta.ADDED) {
-				FitResourceManager.getInstance().add(r);
-			}
-			if (delta.getKind() == IResourceDelta.REMOVED) {
-				FitResourceManager.getInstance().remvoe(r);
-			}
-		}
+            if (delta.getKind() == IResourceDelta.ADDED) {
+                FitResourceManager.getInstance().add(r);
+            }
+            if (delta.getKind() == IResourceDelta.REMOVED) {
+                FitResourceManager.getInstance().remvoe(r);
+            }
+        }
 
-	}
+    }
 
 }

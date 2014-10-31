@@ -13,18 +13,12 @@ import fitedit.resource.FitResourceManager;
  * @see org.eclipse.core.commands.AbstractHandler
  */
 public class RefreshIndexHandler extends AbstractHandler {
-	/**
-	 * The constructor.
-	 */
-	public RefreshIndexHandler() {
-	}
-
-	/**
-	 * the command has been executed, so extract extract the needed information
-	 * from the application context.
-	 */
-	public Object execute(ExecutionEvent event) throws ExecutionException {
-		FitResourceManager.getInstance().rebuildIndex();
-		return null;
-	}
+    /**
+     * the command has been executed, so extract extract the needed information from the application context.
+     */
+    @Override
+    public Object execute(ExecutionEvent event) throws ExecutionException {
+        FitResourceManager.getInstance().rebuildIndex();
+        return null;
+    }
 }

@@ -14,71 +14,57 @@ import fitedit.resource.FitResourceManager;
  */
 public class FitEditPlugin extends AbstractUIPlugin {
 
-	// The plug-in ID
-	public static final String PLUGIN_ID = "fitedit"; //$NON-NLS-1$
+    // The plug-in ID
+    public static final String PLUGIN_ID = "fitedit"; //$NON-NLS-1$
 
-	// The shared instance
-	private static FitEditPlugin plugin;
+    // The shared instance
+    private static FitEditPlugin plugin;
 
-	private FitResourceChangeListener fitResourceChangeListener;
+    private FitResourceChangeListener fitResourceChangeListener;
 
-	/**
-	 * The constructor
-	 */
-	public FitEditPlugin() {
-		fitResourceChangeListener = new FitResourceChangeListener();
-		ResourcesPlugin.getWorkspace().addResourceChangeListener(
-				fitResourceChangeListener, IResourceChangeEvent.POST_CHANGE);
-	}
+    /**
+     * The constructor
+     */
+    public FitEditPlugin() {
+        fitResourceChangeListener = new FitResourceChangeListener();
+        ResourcesPlugin.getWorkspace().addResourceChangeListener(fitResourceChangeListener,
+                IResourceChangeEvent.POST_CHANGE);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext
-	 * )
-	 */
-	public void start(BundleContext context) throws Exception {
-		super.start(context);
-		plugin = this;
+    @Override
+    public void start(BundleContext context) throws Exception {
+        super.start(context);
+        plugin = this;
 
-		// start creating index
-		FitResourceManager.getInstance().rebuildIndex();
-	}
+        // start creating index
+        FitResourceManager.getInstance().rebuildIndex();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext
-	 * )
-	 */
-	public void stop(BundleContext context) throws Exception {
-		ResourcesPlugin.getWorkspace().removeResourceChangeListener(
-				fitResourceChangeListener);
-		plugin = null;
-		super.stop(context);
-	}
+    @Override
+    public void stop(BundleContext context) throws Exception {
+        ResourcesPlugin.getWorkspace().removeResourceChangeListener(fitResourceChangeListener);
+        plugin = null;
+        super.stop(context);
+    }
 
-	/**
-	 * Returns the shared instance
-	 * 
-	 * @return the shared instance
-	 */
-	public static FitEditPlugin getDefault() {
-		return plugin;
-	}
+    /**
+     * Returns the shared instance
+     * 
+     * @return the shared instance
+     */
+    public static FitEditPlugin getDefault() {
+        return plugin;
+    }
 
-	/**
-	 * Returns an image descriptor for the image file at the given plug-in
-	 * relative path
-	 * 
-	 * @param path
-	 *            the path
-	 * @return the image descriptor
-	 */
-	public static ImageDescriptor getImageDescriptor(String path) {
-		return imageDescriptorFromPlugin(PLUGIN_ID, path);
-	}
+    /**
+     * Returns an image descriptor for the image file at the given plug-in relative path
+     * 
+     * @param path
+     *            the path
+     * @return the image descriptor
+     */
+    public static ImageDescriptor getImageDescriptor(String path) {
+        return imageDescriptorFromPlugin(PLUGIN_ID, path);
+    }
 
 }

@@ -74,12 +74,8 @@ public class FitScanner extends RuleBasedScanner {
         wordRule.addWord("!today", wordToken);
         wordRule.addWord("!contents", wordToken);
         wordRule.addWord("!img", wordToken);
-
         rules.add(wordRule);
 
-        // rules.add(new WhitespaceRule(new XMLWhitespaceDetector()));
-
-        IRule[] rulesArray = (IRule[]) rules.toArray(new IRule[rules.size()]);
-        setRules(rulesArray);
+        setRules(rules.toArray(new IRule[rules.size()]));
     }
 }

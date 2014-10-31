@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description name="http://fitnesse-editor.googlecode.com/svn/trunk/fiteditSite/" url="http://fitnesse-editor.googlecode.com/svn/trunk/fiteditSite/">
+      fitnesse edit site
+   </description>
+   <feature url="features/fitedit.feature_2.1.0.201410311841.jar" id="fitedit.feature" version="2.1.0.201410311841">
+      <category name="fitedit"/>
+   </feature>
+   <category-def name="fitedit" label="Fitnesse Editor">
+      <description>
+         Fitnesse Editor adding support to write a fitnesse testcase within Eclipse IDE.
+      </description>
+   </category-def>
+</site>

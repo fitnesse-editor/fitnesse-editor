@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Fitedit UI
 Bundle-SymbolicName: fitedit.ui;singleton:=true
-Bundle-Activator: fitedit.FitEditPlugin
+Bundle-Activator: fitedit.ui.FiteditUi
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.jface.text,
@@ -17,21 +17,20 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: Toshiyuki Fukuzawa
-Export-Package: fitedit,
- fitedit.editors;
+Export-Package: fitedit.ui,
+ fitedit.ui.editors;
   uses:="org.eclipse.jface.text,
    org.eclipse.core.runtime,
    org.eclipse.jface.text.source,
    org.eclipse.jface.text.presentation,
    org.eclipse.ui,
    org.eclipse.ui.editors.text",
-   fitedit.editors.syntaxrules,
- fitedit.editors.outline,
- fitedit.editors.syntaxrules;
+ fitedit.ui.editors.outline,
+ fitedit.ui.editors.syntaxrules;
   uses:="org.eclipse.jface.text,
    org.eclipse.jface.text.presentation,
    org.eclipse.swt.graphics,
    org.eclipse.jface.text.rules"
 Bundle-ClassPath: .,
  lib/js-1.7-R3.jar
-Bundle-Version: 2.1.0.qualifier
+Bundle-Version: 2.1.1.qualifier

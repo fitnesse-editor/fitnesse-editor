@@ -7,26 +7,26 @@
                 name="Editing Fitnesse"
                 description="Editing Fitnesse Context"
                 parentId="org.eclipse.ui.textEditorScope"
-                id="fitedit.editors.fitnesseEditorScope">
+                id="fitedit.ui.editors.fitnesseEditorScope">
          </context>
    </extension>
    <extension
          name="Ed"
          point="org.eclipse.ui.editors">
       <editor
-            class="fitedit.editors.FitnesseEditor"
+            class="fitedit.ui.editors.FitnesseEditor"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             default="true"
             filenames="content.txt"
             icon="icons/icon_doc.gif"
-            id="fitedit.editors.FitnesseEditor"
+            id="fitedit.ui.editors.FitnesseEditor"
             name="FitNesse Editor">
       </editor>
    </extension>
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            class="fitedit.preferences.FitPreferencePage"
+            class="fitedit.ui.preferences.FitPreferencePage"
             id="fitedit.preferences.FitPreferencePage"
             name="FitNesse">
       </page>
@@ -34,7 +34,7 @@
    <extension
          point="org.eclipse.core.runtime.preferences">
       <initializer
-            class="fitedit.preferences.PreferenceInitializer">
+            class="fitedit.ui.preferences.PreferenceInitializer">
       </initializer>
    </extension>
    <extension
@@ -73,23 +73,23 @@
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="fitedit.handlers.RefreshIndexHandler"
+            class="fitedit.ui.handlers.RefreshIndexHandler"
             commandId="fitedit.commands.refreshIndexCommand">
       </handler>
       <handler
-            class="fitedit.handlers.OpenFitnesseResouceHandler"
+            class="fitedit.ui.handlers.OpenFitnesseResouceHandler"
             commandId="fitedit.commands.openFitnesseCommand">
       </handler>
       <handler
-            class="fitedit.handlers.FormatHandler"
+            class="fitedit.ui.handlers.FormatHandler"
             commandId="fitedit.command.format">
       </handler>
       <handler
-            class="fitedit.handlers.CommentHandler"
+            class="fitedit.ui.handlers.CommentHandler"
             commandId="fitedit.command.comment">
       </handler>
       <handler
-            class="fitedit.handlers.OpenBrowserHandler"
+            class="fitedit.ui.handlers.OpenBrowserHandler"
             commandId="fitedit.command.openBrowser">
       </handler>
    </extension>
@@ -102,13 +102,13 @@
       </key>
       <key
             commandId="fitedit.command.comment"
-            contextId="fitedit.editors.fitnesseEditorScope"
+            contextId="fitedit.ui.editors.fitnesseEditorScope"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="Ctrl+Shift+C">
       </key>
       <key
             commandId="fitedit.command.format"
-            contextId="fitedit.editors.fitnesseEditorScope"
+            contextId="fitedit.ui.editors.fitnesseEditorScope"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="Ctrl+Shift+F">
       </key>
@@ -169,7 +169,7 @@
             </separator>
          </menu>
          <action
-               class="fitedit.popup.actions.OpenBrowserAction"
+               class="fitedit.ui.popup.actions.OpenBrowserAction"
                enablesFor="1"
                id="fitedit.newAction"
                label="Open In Browser"
@@ -183,7 +183,7 @@
             id="fitedit.editorContribution1"
             targetID="fitedit.editorContribution1">
          <action
-               class="fitedit.EditorActionDelegate1"
+               class="fitedit.ui.EditorActionDelegate1"
                id="fitedit.action1"
                label="label"
                style="push">
@@ -197,7 +197,7 @@
          <with
                variable="activeEditorId">
             <equals
-                  value="fitedit.editors.FitnesseEditor">
+                  value="fitedit.ui.editors.FitnesseEditor">
             </equals>
          </with>
       </definition>

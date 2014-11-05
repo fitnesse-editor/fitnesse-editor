@@ -1,4 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+   <extension
+         id="fitedit.core.fitnesseBuilder"
+         name="Fitnesse Project Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            hasNature="true">
+         <run
+               class="fitedit.internal.core.builder.FitnesseBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         id="fitedit.core.fitnesseNature"
+         name="Fitnesse Project Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="fitedit.core.FitnesseNature">
+         </run>
+      </runtime>
+      <builder
+            id="fitedit.core.fitnesseBuilder">
+      </builder>
+   </extension>
+   <extension
+         id="fitedit.core.marker.pageMissing"
+         name="Page Missing"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
 </plugin>

@@ -2,10 +2,12 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Fitnesse Editor Core
 Bundle-SymbolicName: fitedit.core;singleton:=true
-Bundle-Version: 2.1.1.qualifier
+Bundle-Version: 3.0.0.qualifier
 Bundle-Activator: fitedit.core.FiteditCore
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.core.resources
+ org.eclipse.core.resources,
+ org.eclipse.jdt.core;resolution:=optional,
+ org.eclipse.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: fitedit.core

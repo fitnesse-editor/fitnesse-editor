@@ -2,7 +2,7 @@
 <feature
       id="fitedit.feature"
       label="Fitnesse Editor Feature"
-      version="2.1.1.qualifier">
+      version="3.0.0.qualifier">
 
    <description url="http://code.google.com/p/fitnesse-editor/">
       Fitnesse Editor Feature
@@ -35,14 +35,14 @@
          id="fitedit.core"
          download-size="0"
          install-size="0"
-         version="2.1.1.qualifier"
+         version="3.0.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="fitedit.ui"
          download-size="0"
          install-size="0"
-         version="2.1.1.qualifier"
+         version="3.0.0.qualifier"
          unpack="false"/>
 
 </feature>

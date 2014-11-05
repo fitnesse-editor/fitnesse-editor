@@ -39,6 +39,16 @@
    </extension>
    <extension
          point="org.eclipse.ui.commands">
+	  <category
+            id="fitedit.core.fitnesseNature.category"
+            name="Fitnesse Project Nature commands">
+      </category>
+      <command
+            categoryId="fitedit.core.fitnesseNature.category"
+            defaultHandler="fitedit.ui.handlers.AddRemoveFitnesseNatureHandler"
+            id="fitedit.core.addRemoveFitnesseNature"
+            name="Add/Remove Fitnesse Project Nature">
+      </command>
       <category
             id="fitedit.commands.category"
             name="FitEditor Action Category">
@@ -115,19 +125,67 @@
    </extension>
    <extension
          point="org.eclipse.ui.menus">
-      <menuContribution
-            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
-         <menu
-               id="fitedit.menus.fitMenu"
-               label="FitNesse"
-               mnemonic="M">
-            <command
-                  commandId="fitedit.commands.openFitnesseCommand"
-                  id="fitedit.menus.openFitnesseCommand"
-                  mnemonic="S">
-            </command>
+         <menuContribution
+         	locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+         <menu label="Fitnesse">
+         	<seperator name="actions">
+         	</seperator>
+         	<seperator name="toggle">
+         	</seperator>
+	         	<command
+	               commandId="fitedit.core.addRemoveFitnesseNature"
+	               label="Disable Fitnesse Nature"
+	               style="push">
+	            <visibleWhen
+	                  checkEnabled="false">
+	               <with
+	                     variable="selection">
+	                  <count
+	                        value="1">
+	                  </count>
+	                  <iterate>
+	                     <adapt
+	                           type="org.eclipse.core.resources.IProject">
+	                        <test
+	                              property="org.eclipse.core.resources.projectNature"
+	                              value="fitedit.core.fitnesseNature">
+	                        </test>
+	                     </adapt>
+	                  </iterate>
+	               </with>
+	            </visibleWhen>
+	         </command>
          </menu>
+         </menuContribution>
+	  <menuContribution
+            locationURI="popup:org.eclipse.ui.projectConfigure?after=additions">
+         <command
+               commandId="fitedit.core.addRemoveFitnesseNature"
+               label="Convert to Fitnesse Project"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <count
+                        value="1">
+                  </count>
+                  <iterate>
+                     <adapt
+                           type="org.eclipse.core.resources.IProject">
+                        <not>
+                           <test
+                                 property="org.eclipse.core.resources.projectNature"
+                                 value="fitedit.core.fitnesseNature">
+                           </test>
+                        </not>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
       </menuContribution>
+      
       <menuContribution
             locationURI="popup:#TextEditorContext?after=additions">
          <menu
@@ -154,28 +212,6 @@
             </command>
          </menu>
       </menuContribution>
-   </extension>
-   <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            id="fitedit.contribution1"
-            objectClass="org.eclipse.core.resources.IResource">
-         <menu
-               id="fitedit.menu1"
-               label="FitNesse"
-               path="additions">
-            <separator
-                  name="group1">
-            </separator>
-         </menu>
-         <action
-               class="fitedit.ui.popup.actions.OpenBrowserAction"
-               enablesFor="1"
-               id="fitedit.newAction"
-               label="Open In Browser"
-               menubarPath="fitedit.menu1/group1">
-         </action>
-      </objectContribution>
    </extension>
    <extension
          point="org.eclipse.ui.editorActions">

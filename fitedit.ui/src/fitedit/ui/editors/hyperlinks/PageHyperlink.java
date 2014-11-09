@@ -1,12 +1,9 @@
 package fitedit.ui.editors.hyperlinks;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.FileEditorInput;
 
-import fitedit.ui.Constants;
+import fitedit.core.IFitnessePage;
 import fitedit.ui.editors.FitnesseEditor;
 import fitedit.ui.utils.DialogUtils;
 
@@ -34,42 +31,27 @@ import fitedit.ui.utils.DialogUtils;
  */
 public class PageHyperlink extends AbstractHyperLink {
 
-    private String page;
+    private IFitnessePage page;
 
     /**
      * Creates a hyper link to the specified page with offset position and content length.
      * 
-     * @param page
+     * @param findPage
      *            the page to link to.
      * @param offset
      *            the document offset.
      * @param length
      *            the length from offset.
      */
-    public PageHyperlink(String page, int offset, int length) {
+    public PageHyperlink(IFitnessePage findPage, int offset, int length) {
         super(offset, length);
-        this.page = page;
+        this.page = findPage;
     }
 
     @Override
     public void open() {
-        IFile editorFile = extractFileFromEditor(getActiveEditor());
-        IProject project = editorFile.getProject();
-
-        IPath path;
-        if (page.startsWith(".")) {
-            path = project.getProjectRelativePath().append(Constants.FITNESSE_ROOT).addTrailingSeparator()
-                    .append(page.substring(1));
-        } else {
-            path = editorFile.getFullPath().removeFirstSegments(1).removeLastSegments(2).addTrailingSeparator()
-                    .append(page);
-        }
-        path = path.addTrailingSeparator().append(Constants.CONTENT_TXT);
-
-        IFile file = project.getFile(path);
-
         try {
-            getWorkbenchPage().openEditor(new FileEditorInput(file), FitnesseEditor.EDITOR_ID);
+            getWorkbenchPage().openEditor(new FileEditorInput(page), FitnesseEditor.EDITOR_ID);
         } catch (PartInitException e) {
             DialogUtils.openErrorDialog("title", "message", "status message", e);
         }

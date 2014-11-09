@@ -9,29 +9,31 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 
-public class FitnesseBuilder extends IncrementalProjectBuilder {
+import fitedit.core.FiteditCore;
 
-    public static final String BUILDER_ID = "fitedit.core.fitnesseBuilder";
+public class FitnesseBuilder extends IncrementalProjectBuilder {
 
     @Override
     protected IProject[] build(int kind, @SuppressWarnings("rawtypes") Map args, IProgressMonitor monitor)
             throws CoreException {
-        if (kind == FULL_BUILD) {
-            fullBuild(monitor);
-        } else {
-            IResourceDelta delta = getDelta(getProject());
-            if (delta == null) {
-                fullBuild(monitor);
-            } else {
-                incrementalBuild(delta, monitor);
-            }
-        }
+        // TODO need to extend the model to include !includes so we can update other pages without doing a full build
+
+        // if (kind == FULL_BUILD) {
+        fullBuild(monitor);
+        // } else {
+        // IResourceDelta delta = getDelta(getProject());
+        // if (delta == null) {
+        // fullBuild(monitor);
+        // } else {
+        // incrementalBuild(delta, monitor);
+        // }
+        // }
         return null;
     }
 
     @Override
     protected void clean(IProgressMonitor monitor) throws CoreException {
-        getProject().deleteMarkers(PageChecker.MARKER_TYPE, true, IResource.DEPTH_INFINITE);
+        getProject().deleteMarkers(FiteditCore.MARKER_TYPE, true, IResource.DEPTH_INFINITE);
     }
 
     protected void fullBuild(final IProgressMonitor monitor) throws CoreException {
@@ -42,6 +44,6 @@ public class FitnesseBuilder extends IncrementalProjectBuilder {
     }
 
     protected void incrementalBuild(IResourceDelta delta, IProgressMonitor monitor) throws CoreException {
-        delta.accept(new DefaultDeltaVisitor(getProject()));
+        delta.accept(new DefaultDeltaResourceVisitor(getProject()));
     }
 }

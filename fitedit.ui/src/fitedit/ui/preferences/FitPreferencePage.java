@@ -21,7 +21,7 @@ public class FitPreferencePage extends FieldEditorPreferencePage implements IWor
     public FitPreferencePage() {
         super(GRID);
         setPreferenceStore(FiteditUi.getDefault().getPreferenceStore());
-        setDescription("Preference Page for FitNesse Editor");
+        setDescription("General settings for FitNesse");
     }
 
     /**
@@ -30,7 +30,9 @@ public class FitPreferencePage extends FieldEditorPreferencePage implements IWor
      */
     @Override
     public void createFieldEditors() {
-        addField(new StringFieldEditor(PreferenceConstants.P_URL_PREFIX, "URL Prefix :", getFieldEditorParent()));
+        addField(new StringFieldEditor(PreferenceConstants.FITNESSE_URL, "Host :", getFieldEditorParent()));
+        addField(new StringFieldEditor(PreferenceConstants.FITNESSE_ROOT_DIR, "Root Directory :",
+                getFieldEditorParent()));
     }
 
     @Override

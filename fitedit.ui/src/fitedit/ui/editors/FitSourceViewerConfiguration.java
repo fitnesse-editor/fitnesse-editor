@@ -13,8 +13,11 @@ import org.eclipse.jface.text.hyperlink.IHyperlinkPresenter;
 import org.eclipse.jface.text.hyperlink.MultipleHyperlinkPresenter;
 import org.eclipse.jface.text.presentation.IPresentationReconciler;
 import org.eclipse.jface.text.presentation.PresentationReconciler;
+import org.eclipse.jface.text.quickassist.IQuickAssistAssistant;
 import org.eclipse.jface.text.rules.DefaultDamagerRepairer;
 import org.eclipse.jface.text.rules.Token;
+import org.eclipse.jface.text.source.DefaultAnnotationHover;
+import org.eclipse.jface.text.source.IAnnotationHover;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
 import org.eclipse.swt.graphics.RGB;
@@ -28,6 +31,19 @@ import fitedit.ui.editors.syntaxrules.NonRuleBasedDamagerRepairer;
 public class FitSourceViewerConfiguration extends SourceViewerConfiguration {
     private static FitScanner fitScanner = null;
     private static ColorManager colorManager = new ColorManager();
+
+    private IQuickAssistAssistant assistant = new FitnesseQuickAssistAssistant();
+    private IAnnotationHover hover = new DefaultAnnotationHover();
+
+    @Override
+    public IAnnotationHover getAnnotationHover(ISourceViewer sourceViewer) {
+        return hover;
+    }
+
+    @Override
+    public IQuickAssistAssistant getQuickAssistAssistant(ISourceViewer sourceViewer) {
+        return assistant;
+    }
 
     @Override
     public IHyperlinkDetector[] getHyperlinkDetectors(ISourceViewer sourceViewer) {
@@ -61,8 +77,9 @@ public class FitSourceViewerConfiguration extends SourceViewerConfiguration {
 
     @Override
     public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
-        return new String[] { FitSourcePartitionScanner.FIT_COMMENT, FitSourcePartitionScanner.FIT_INCLUDE,
-                FitSourcePartitionScanner.FIT_TABLE, IDocument.DEFAULT_CONTENT_TYPE };
+        return new String[] { FitSourcePartitionScanner.FIT_COMMENT, FitSourcePartitionScanner.FIT_DEFINE,
+                FitSourcePartitionScanner.FIT_INCLUDE, FitSourcePartitionScanner.FIT_TABLE,
+                IDocument.DEFAULT_CONTENT_TYPE };
     }
 
     protected FitScanner getFitScanner() {
@@ -104,9 +121,7 @@ public class FitSourceViewerConfiguration extends SourceViewerConfiguration {
     public IContentFormatter getContentFormatter(ISourceViewer sourceViewer) {
         MultiPassContentFormatter formatter = new MultiPassContentFormatter(
                 getConfiguredDocumentPartitioning(sourceViewer), IDocument.DEFAULT_CONTENT_TYPE);
-
         formatter.setMasterStrategy(new FitnesseFormattingStrategy());
-
         return formatter;
     }
 

@@ -1,5 +1,8 @@
 package fitedit.ui.editors;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IRegion;
@@ -7,10 +10,21 @@ import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.ITypedRegion;
 import org.eclipse.jface.text.hyperlink.AbstractHyperlinkDetector;
 import org.eclipse.jface.text.hyperlink.IHyperlink;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 
+import fitedit.core.FiteditCore;
+import fitedit.core.IFitnessePage;
+import fitedit.core.IFitnesseProject;
 import fitedit.ui.editors.hyperlinks.ClassHyperlink;
 import fitedit.ui.editors.hyperlinks.PageHyperlink;
 import fitedit.ui.editors.syntaxrules.FitSourcePartitionScanner;
+import fitedit.ui.utils.Preferences;
 
 public class FitnesseLinkDetector extends AbstractHyperlinkDetector {
 
@@ -41,8 +55,25 @@ public class FitnesseLinkDetector extends AbstractHyperlinkDetector {
                 int min = partitionOffset + len;
                 int max = partitionOffset + source.length();
                 if (withinRange(min, max, regionOffset)) {
-                    // TODO check page exists
-                    hyperlink = new PageHyperlink(page, min, source.length() - len);
+
+                    IFile editorFile = extractFileFromEditor(getActiveEditor());
+                    IProject project = editorFile.getProject();
+
+                    IPath path;
+                    if (page.startsWith(".")) {
+                        path = project.getProjectRelativePath().append(Preferences.getFitnesseRoot())
+                                .addTrailingSeparator().append(page.substring(1));
+                    } else {
+                        path = editorFile.getProjectRelativePath().removeLastSegments(2).addTrailingSeparator()
+                                .append(page);
+                    }
+
+                    IFitnesseProject fitnesseProject = FiteditCore.create(editorFile.getProject());
+                    IFitnessePage findPage = fitnesseProject.findPage(path);
+
+                    if (findPage != null) {
+                        hyperlink = new PageHyperlink(findPage, min, source.length() - len);
+                    }
                 }
             }
         } catch (BadLocationException e) {
@@ -58,5 +89,24 @@ public class FitnesseLinkDetector extends AbstractHyperlinkDetector {
 
     private String extractFqdn(String source) {
         return source.replaceAll("[\\r\\n]+", "").split("\\|\\|")[0].substring(2);
+    }
+
+    IFile extractFileFromEditor(IEditorPart editor) {
+        IEditorInput input = editor.getEditorInput();
+        if (!(input instanceof IFileEditorInput)) {
+            return null;
+        }
+        return ((IFileEditorInput) input).getFile();
+    }
+
+    protected IEditorPart getActiveEditor() {
+        return getWorkbenchPage().getActiveEditor();
+    }
+
+    protected IWorkbenchPage getWorkbenchPage() {
+        IWorkbench iworkbench = PlatformUI.getWorkbench();
+        IWorkbenchWindow iworkbenchwindow = iworkbench.getActiveWorkbenchWindow();
+        IWorkbenchPage iworkbenchpage = iworkbenchwindow.getActivePage();
+        return iworkbenchpage;
     }
 }

@@ -5,8 +5,8 @@ package fitedit.ui.preferences;
  */
 public class PreferenceConstants {
 
-    public static final String P_FITNESSEROOT_DIR = "fitnesse_root_dir";
+    public static final String FITNESSE_ROOT_DIR = "fitnesse_root_dir";
 
-    public static final String P_URL_PREFIX = "url_prefix";
+    public static final String FITNESSE_URL = "fitnesse_url";
 
 }

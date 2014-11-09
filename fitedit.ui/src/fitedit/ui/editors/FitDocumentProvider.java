@@ -18,8 +18,8 @@ public class FitDocumentProvider extends FileDocumentProvider {
         if (document != null) {
             IDocumentPartitioner partitioner = new FastPartitioner(new FitSourcePartitionScanner(), new String[] {
                     IDocument.DEFAULT_CONTENT_TYPE, FitSourcePartitionScanner.FIT_COMMENT,
-                    FitSourcePartitionScanner.FIT_INCLUDE, FitSourcePartitionScanner.FIT_TABLE,
-                    FitSourcePartitionScanner.FIT_TABLE_HEADER }) {
+                    FitSourcePartitionScanner.FIT_DEFINE, FitSourcePartitionScanner.FIT_INCLUDE,
+                    FitSourcePartitionScanner.FIT_TABLE }) {
 
                 @Override
                 public void connect(IDocument document, boolean delayInitialization) {

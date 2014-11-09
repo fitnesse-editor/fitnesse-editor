@@ -26,7 +26,7 @@
       </builder>
    </extension>
    <extension
-         id="fitedit.core.marker.pageMissing"
+         id="fitedit.core.marker.problemmarker"
          name="Page Missing"
          point="org.eclipse.core.resources.markers">
       <super

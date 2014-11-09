@@ -2,7 +2,8 @@
 <feature
       id="fitedit.feature"
       label="Fitnesse Editor Feature"
-      version="3.0.0.qualifier">
+      version="3.0.0.qualifier"
+      plugin="fitedit.ui">
 
    <description url="http://code.google.com/p/fitnesse-editor/">
       Fitnesse Editor Feature

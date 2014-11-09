@@ -1,13 +1,12 @@
 package fitedit.ui;
 
-import org.eclipse.core.resources.IResourceChangeEvent;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-import fitedit.ui.resource.FitResourceChangeListener;
-import fitedit.ui.resource.FitResourceManager;
+import fitedit.core.FiteditCore;
+import fitedit.core.FitnesseModel;
+import fitedit.ui.utils.Preferences;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -15,36 +14,24 @@ import fitedit.ui.resource.FitResourceManager;
 public class FiteditUi extends AbstractUIPlugin {
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "fitedit.ui.ui"; //$NON-NLS-1$
+    public static final String PLUGIN_ID = "fitedit.ui"; //$NON-NLS-1$
 
     // The shared instance
     private static FiteditUi plugin;
-
-    private FitResourceChangeListener fitResourceChangeListener;
-
-    /**
-     * The constructor
-     */
-    public FiteditUi() {
-        fitResourceChangeListener = new FitResourceChangeListener();
-        ResourcesPlugin.getWorkspace().addResourceChangeListener(fitResourceChangeListener,
-                IResourceChangeEvent.POST_CHANGE);
-    }
 
     @Override
     public void start(BundleContext context) throws Exception {
         super.start(context);
         plugin = this;
 
-        // start creating index
-        FitResourceManager.getInstance().rebuildIndex();
+        FiteditCore.getFiteditCore().setFitnesseRoot(Preferences.getFitnesseRoot());
+        FitnesseModel.getFitnesseModel().index();
     }
 
     @Override
     public void stop(BundleContext context) throws Exception {
-        ResourcesPlugin.getWorkspace().removeResourceChangeListener(fitResourceChangeListener);
-        plugin = null;
         super.stop(context);
+        plugin = null;
     }
 
     /**

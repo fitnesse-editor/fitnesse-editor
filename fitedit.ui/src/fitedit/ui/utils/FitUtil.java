@@ -67,7 +67,7 @@ public class FitUtil {
             return null;
         }
 
-        String[] paths = path.split(Constants.FITNESSE_ROOT);
+        String[] paths = path.split(Preferences.getFitnesseRoot());
         if (paths.length <= 1) {
             return "";
         }
@@ -85,7 +85,7 @@ public class FitUtil {
     }
 
     public static void openFitnesseInBrowser(IResource resource) {
-        String prefix = FiteditUi.getDefault().getPreferenceStore().getString(PreferenceConstants.P_URL_PREFIX);
+        String prefix = FiteditUi.getDefault().getPreferenceStore().getString(PreferenceConstants.FITNESSE_URL);
         String url = prefix + FitUtil.getFitnesseUrl(resource.getFullPath().toString());
         openDesktopBrowser(url);
     }

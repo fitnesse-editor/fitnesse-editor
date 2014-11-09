@@ -1,6 +1,7 @@
 package fitedit.ui.dialogs;
 
 import java.util.Comparator;
+import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -12,14 +13,15 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.FilteredItemsSelectionDialog;
 
+import fitedit.core.FitnesseModel;
+import fitedit.core.IFitnessePage;
 import fitedit.ui.FiteditUi;
-import fitedit.ui.resource.FitResource;
-import fitedit.ui.resource.FitResourceManager;
 
 public class FitResourceSelectionDialog extends FilteredItemsSelectionDialog {
 
     public FitResourceSelectionDialog(Shell shell, boolean b) {
         super(shell, b);
+        setImage(FiteditUi.getImageDescriptor("icons/fitedit_16.png").createImage());
     }
 
     @Override
@@ -46,8 +48,8 @@ public class FitResourceSelectionDialog extends FilteredItemsSelectionDialog {
         return new ItemsFilter() {
             @Override
             public boolean matchItem(Object item) {
-                FitResource r = (FitResource) item;
-                return matches(r.getName());
+                IFitnessePage page = (IFitnessePage) item;
+                return matches(page.getParent().getName());
             }
 
             @Override
@@ -60,12 +62,10 @@ public class FitResourceSelectionDialog extends FilteredItemsSelectionDialog {
 
     @Override
     protected Comparator<?> getItemsComparator() {
-        return new Comparator<Object>() {
+        return new Comparator<IFitnessePage>() {
             @Override
-            public int compare(Object arg0, Object arg1) {
-                FitResource a = (FitResource) arg0;
-                FitResource b = (FitResource) arg1;
-                return a.compareTo(b);
+            public int compare(IFitnessePage arg0, IFitnessePage arg1) {
+                return arg0.compareTo(arg1);
             }
         };
     }
@@ -75,13 +75,15 @@ public class FitResourceSelectionDialog extends FilteredItemsSelectionDialog {
             IProgressMonitor progressMonitor) throws CoreException {
         progressMonitor.beginTask("Open..", 10);
 
+        List<IFitnessePage> pages = FitnesseModel.getFitnesseModel().getPages();
+
         int total = 0;
-        int unit = FitResourceManager.getInstance().getResouces().size() / 10;
+        int unit = pages.size() / 10;
         if (unit == 0) {
             unit = 1;
         }
         int i = 0;
-        for (FitResource r : FitResourceManager.getInstance().getResouces()) {
+        for (IFitnessePage r : pages) {
             i++;
             if (i % unit == 0) {
                 total++;
@@ -95,8 +97,7 @@ public class FitResourceSelectionDialog extends FilteredItemsSelectionDialog {
 
     @Override
     public String getElementName(Object item) {
-        FitResource r = (FitResource) item;
-        return r.getName();
+        return ((IFitnessePage) item).getParent().getName();
     }
 
 }

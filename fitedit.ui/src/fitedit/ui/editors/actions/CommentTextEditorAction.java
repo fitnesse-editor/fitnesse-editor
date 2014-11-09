@@ -3,6 +3,7 @@ package fitedit.ui.editors.actions;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
@@ -36,7 +37,7 @@ public class CommentTextEditorAction extends TextEditorAction {
     /**
      * Creates and initializes the action for the given text editor. The action configures its visual representation
      * from the given resource bundle.
-     * 
+     *
      * @param bundle
      *            the resource bundle
      * @param prefix
@@ -56,32 +57,38 @@ public class CommentTextEditorAction extends TextEditorAction {
      */
     @Override
     public void run() {
-        if (fOperationTarget == null || fDocumentPartitioning == null || fPrefixesMap == null)
+        if (fOperationTarget == null || fDocumentPartitioning == null || fPrefixesMap == null) {
             return;
+        }
 
         ITextEditor editor = getTextEditor();
-        if (editor == null)
+        if (editor == null) {
             return;
+        }
 
-        if (!validateEditorInputState())
+        if (!validateEditorInputState()) {
             return;
+        }
 
         final int operationCode;
-        if (isSelectionCommented(editor.getSelectionProvider().getSelection()))
+        if (isSelectionCommented(editor.getSelectionProvider().getSelection())) {
             operationCode = ITextOperationTarget.STRIP_PREFIX;
-        else
+        } else {
             operationCode = ITextOperationTarget.PREFIX;
+        }
 
         Shell shell = editor.getSite().getShell();
         if (!fOperationTarget.canDoOperation(operationCode)) {
-            if (shell != null)
+            if (shell != null) {
                 MessageDialog.openError(shell, "Error", "Failed to toggle comment");
+            }
             return;
         }
 
         Display display = null;
-        if (shell != null && !shell.isDisposed())
+        if (shell != null && !shell.isDisposed()) {
             display = shell.getDisplay();
+        }
 
         BusyIndicator.showWhile(display, new Runnable() {
             @Override
@@ -93,18 +100,20 @@ public class CommentTextEditorAction extends TextEditorAction {
 
     /**
      * Is the given selection single-line commented?
-     * 
+     *
      * @param selection
      *            Selection to check
      * @return <code>true</code> iff all selected lines are commented
      */
     private boolean isSelectionCommented(ISelection selection) {
-        if (!(selection instanceof ITextSelection))
+        if (!(selection instanceof ITextSelection)) {
             return false;
+        }
 
         ITextSelection textSelection = (ITextSelection) selection;
-        if (textSelection.getStartLine() < 0 || textSelection.getEndLine() < 0)
+        if (textSelection.getStartLine() < 0 || textSelection.getEndLine() < 0) {
             return false;
+        }
 
         IDocument document = getTextEditor().getDocumentProvider().getDocument(getTextEditor().getEditorInput());
 
@@ -121,17 +130,20 @@ public class CommentTextEditorAction extends TextEditorAction {
                 // end line of region
                 int length = regions[i].getLength();
                 int offset = regions[i].getOffset() + length;
-                if (length > 0)
+                if (length > 0) {
                     offset--;
+                }
                 lines[j + 1] = (lines[j] == -1 ? -1 : document.getLineOfOffset(offset));
             }
 
             // Perform the check
             for (int i = 0, j = 0; i < regions.length; i++, j += 2) {
                 String[] prefixes = fPrefixesMap.get(regions[i].getType());
-                if (prefixes != null && prefixes.length > 0 && lines[j] >= 0 && lines[j + 1] >= 0)
-                    if (!isBlockCommented(lines[j], lines[j + 1], prefixes, document))
+                if (prefixes != null && prefixes.length > 0 && lines[j] >= 0 && lines[j + 1] >= 0) {
+                    if (!isBlockCommented(lines[j], lines[j + 1], prefixes, document)) {
                         return false;
+                    }
+                }
             }
 
             return true;
@@ -146,7 +158,7 @@ public class CommentTextEditorAction extends TextEditorAction {
     /**
      * Creates a region describing the text block (something that starts at the beginning of a line) completely
      * containing the current selection.
-     * 
+     *
      * @param selection
      *            The selection to use
      * @param document
@@ -170,7 +182,7 @@ public class CommentTextEditorAction extends TextEditorAction {
 
     /**
      * Returns the index of the first line whose start offset is in the given text range.
-     * 
+     *
      * @param region
      *            the text range in characters where to find the line
      * @param document
@@ -184,8 +196,9 @@ public class CommentTextEditorAction extends TextEditorAction {
             int startLine = document.getLineOfOffset(region.getOffset());
 
             int offset = document.getLineOffset(startLine);
-            if (offset >= region.getOffset())
+            if (offset >= region.getOffset()) {
                 return startLine;
+            }
 
             offset = document.getLineOffset(startLine + 1);
             return (offset > region.getOffset() + region.getLength() ? -1 : startLine + 1);
@@ -199,7 +212,7 @@ public class CommentTextEditorAction extends TextEditorAction {
 
     /**
      * Determines whether each line is prefixed by one of the prefixes.
-     * 
+     *
      * @param startLine
      *            Start line in document
      * @param endLine
@@ -223,15 +236,17 @@ public class CommentTextEditorAction extends TextEditorAction {
 
                 int[] found = TextUtilities.indexOf(prefixes, text, 0);
 
-                if (found[0] == -1)
+                if (found[0] == -1) {
                     // found a line which is not commented
                     return false;
+                }
 
                 String s = document.get(line.getOffset(), found[0]);
                 s = s.trim();
-                if (s.length() != 0)
+                if (s.length() != 0) {
                     // found a line which is not commented
                     return false;
+                }
 
             }
 
@@ -258,8 +273,9 @@ public class CommentTextEditorAction extends TextEditorAction {
         }
 
         ITextEditor editor = getTextEditor();
-        if (fOperationTarget == null && editor != null)
+        if (fOperationTarget == null && editor != null) {
             fOperationTarget = (ITextOperationTarget) editor.getAdapter(ITextOperationTarget.class);
+        }
 
         boolean isEnabled = (fOperationTarget != null && fOperationTarget.canDoOperation(ITextOperationTarget.PREFIX) && fOperationTarget
                 .canDoOperation(ITextOperationTarget.STRIP_PREFIX));
@@ -280,14 +296,15 @@ public class CommentTextEditorAction extends TextEditorAction {
 
         String[] types = configuration.getConfiguredContentTypes(sourceViewer);
         Map<String, String[]> prefixesMap = new HashMap<String, String[]>(types.length);
-        for (int i = 0; i < types.length; i++) {
-            String type = types[i];
+        for (String type : types) {
             String[] prefixes = configuration.getDefaultPrefixes(sourceViewer, type);
             if (prefixes != null && prefixes.length > 0) {
                 int emptyPrefixes = 0;
-                for (int j = 0; j < prefixes.length; j++)
-                    if (prefixes[j].length() == 0)
+                for (String prefixe : prefixes) {
+                    if (prefixe.length() == 0) {
                         emptyPrefixes++;
+                    }
+                }
 
                 if (emptyPrefixes > 0) {
                     String[] nonemptyPrefixes = new String[prefixes.length - emptyPrefixes];

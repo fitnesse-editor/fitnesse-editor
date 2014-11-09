@@ -6,8 +6,8 @@ Bundle-Version: 3.0.0.qualifier
 Bundle-Activator: fitedit.core.FiteditCore
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
- org.eclipse.jdt.core;resolution:=optional,
- org.eclipse.ui
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+ org.eclipse.ui,
+ org.eclipse.jdt.core;resolution:=optional
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: fitedit.core

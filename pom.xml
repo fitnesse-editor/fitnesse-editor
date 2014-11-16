@@ -2,18 +2,19 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>fitedit</groupId>
-    <artifactId>fitedit.parent</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <groupId>fitnesseclipse</groupId>
+    <artifactId>fitnesseclipse.parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 
     <modules>
-        <module>fitedit.feature</module>
-        <module>fitedit.site</module>
+        <module>fitnesseclipse</module>
+        <module>fitnesseclipse.feature</module>
+        <module>fitnesseclipse.site</module>
 
-        <module>fitedit.core</module>
-        <module>fitedit.ui</module>
+        <module>fitnesseclipse.core</module>
+        <module>fitnesseclipse.ui</module>
     </modules>
 
     <properties>

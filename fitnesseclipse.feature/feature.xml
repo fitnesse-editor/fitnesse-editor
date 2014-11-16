@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="fitnesseclipse.feature"
+      label="FitNesse Eclipse"
+      version="1.0.0.qualifier"
+      plugin="fitnesseclipse">
+
+   <description>
+      FitNesse Eclipse
+   </description>
+
+   <copyright>
+      Copyright
+   </copyright>
+
+   <license url="">
+      Eclipse Public License 1.0
+   </license>
+
+   <url>
+      <update label="FitNesse Eclipse Update Site" url="http://fitnesse-eclipse.github.com/nightly"/>
+   </url>
+
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.ui.editors"/>
+      <import plugin="org.eclipse.ui.views" version="3.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.ide" version="3.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.resources" version="3.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.expressions"/>
+   </requires>
+
+   <plugin
+         id="fitnesseclipse.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="fitnesseclipse.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="fitnesseclipse"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+</feature>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+	<extension
+         point="org.eclipse.ui.contexts">
+		<context 
+                name="Editing Fitnesse"
+                description="Editing Fitnesse Context"
+                parentId="org.eclipse.ui.textEditorScope"
+                id="fitnesseclipse.ui.editors.fitnesseEditorScope">
+		</context>
+	</extension>
+
+	<extension
+         point="org.eclipse.ui.editors">
+		<editor
+            class="fitnesseclipse.ui.editors.FitnesseEditor"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            default="true"
+            filenames="content.txt"
+            icon="icons/fitedit_16.png"
+            id="fitnesseclipse.ui.editors.FitnesseEditor"
+            name="FitNesse Editor">
+		</editor>
+	</extension>
+
+	<extension
+         point="org.eclipse.ui.preferencePages">
+		<page
+            class="fitnesseclipse.ui.preferences.FitPreferencePage"
+            id="fitnesseclipse.preferences.FitPreferencePage"
+            name="FitNesse">
+		</page>
+	</extension>
+
+	<extension
+         point="org.eclipse.core.runtime.preferences">
+		<initializer
+            class="fitnesseclipse.ui.preferences.PreferenceInitializer">
+		</initializer>
+	</extension>
+
+	<extension
+         point="org.eclipse.ui.commands">
+		<category
+            id="fitnesseclipse.ui.nature.category"
+            name="Fitnesse Project Nature commands">
+		</category>
+		<command
+            categoryId="fitnesseclipse.ui.nature.category"
+            defaultHandler="fitnesseclipse.ui.handlers.AddRemoveFitnesseNatureHandler"
+            id="fitnesseclipse.core.addRemoveFitnesseNature"
+            name="Add/Remove Fitnesse Project Nature">
+		</command>
+		<category
+            id="fitnesseclipse.commands.category"
+            name="Action Category">
+		</category>
+		<command
+            categoryId="fitnesseclipse.commands.category"
+            id="fitnesseclipse.commands.refreshIndexCommand"
+            name="Rebuild FitNesse Indexes">
+		</command>
+		<command
+            categoryId="fitnesseclipse.commands.category"
+            id="fitnesseclipse.commands.openFitnesseCommand"
+            name="Open FitNesse">
+		</command>
+		<command
+            categoryId="fitnesseclipse.commands.category"
+            id="fitnesseclipse.command.format"
+            name="Format">
+		</command>
+		<command
+            categoryId="fitnesseclipse.commands.category"
+            id="fitnesseclipse.command.openBrowser"
+            name="Open In Browser">
+		</command>
+		<command
+            categoryId="fitnesseclipse.commands.category"
+            description="Toggle Comment"
+            id="fitnesseclipse.command.comment"
+            name="Toggle Comment">
+		</command>            
+	</extension>
+
+	<extension
+         point="org.eclipse.ui.handlers">
+		<handler
+            class="fitnesseclipse.ui.handlers.OpenFitnesseResouceHandler"
+            commandId="fitnesseclipse.commands.openFitnesseCommand">
+		</handler>
+		<handler
+            class="fitnesseclipse.ui.handlers.OpenBrowserHandler"
+            commandId="fitnesseclipse.command.openBrowser">
+		</handler>
+		<handler
+            class="fitnesseclipse.ui.handlers.FormatHandler"
+            commandId="fitnesseclipse.command.format">
+		</handler>
+		<handler
+            class="fitnesseclipse.ui.handlers.CommentHandler"
+            commandId="fitnesseclipse.command.comment">
+		</handler>
+	</extension>
+
+	<extension
+         point="org.eclipse.ui.bindings">
+		<key
+            commandId="fitnesseclipse.commands.openFitnesseCommand"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="Ctrl+Shift+Z">
+		</key>
+		<key
+            commandId="fitnesseclipse.command.comment"
+            contextId="fitnesseclipse.ui.editors.fitnesseEditorScope"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="Ctrl+Shift+C">
+		</key>
+		<key
+            commandId="fitnesseclipse.command.format"
+            contextId="fitnesseclipse.ui.editors.fitnesseEditorScope"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="Ctrl+Shift+F">
+		</key>
+	</extension>
+
+	<extension
+         point="org.eclipse.ui.menus">
+		<menuContribution
+         	locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+			<menu label="Fitnesse" />
+			<command 
+	               commandId="fitnesseclipse.core.addRemoveFitnesseNature"
+	               label="Disable Fitnesse Nature"
+	               style="push">
+				<visibleWhen
+	                  checkEnabled="false">
+					<with
+	                     variable="selection">
+						<count
+	                        value="1">
+						</count>
+						<iterate>
+							<adapt
+	                           type="org.eclipse.core.resources.IProject">
+								<test
+	                              property="org.eclipse.core.resources.projectNature"
+	                              value="fitnesseclipse.core.fitnesseNature">
+								</test>
+							</adapt>
+						</iterate>
+					</with>
+				</visibleWhen>
+			</command>
+		</menuContribution>
+
+		<menuContribution
+            locationURI="popup:org.eclipse.ui.projectConfigure?after=additions">
+			<command
+               commandId="fitnesseclipse.core.addRemoveFitnesseNature"
+               label="Convert to Fitnesse Project"
+               style="push">
+				<visibleWhen
+                  checkEnabled="false">
+					<with
+                     variable="selection">
+						<count
+                        value="1">
+						</count>
+						<iterate>
+							<adapt
+                           type="org.eclipse.core.resources.IProject">
+								<not>
+									<test
+                                 property="org.eclipse.core.resources.projectNature"
+                                 value="fitnesseclipse.core.fitnesseNature">
+									</test>
+								</not>
+							</adapt>
+						</iterate>
+					</with>
+				</visibleWhen>
+			</command>
+		</menuContribution>
+
+		<menuContribution
+            locationURI="popup:#TextEditorContext?after=additions">
+			<menu
+               label="FitNesse">
+				<command
+                  commandId="fitnesseclipse.command.format"
+                  label="Format"
+                  style="push">
+					<visibleWhen>
+						<reference
+                        definitionId="fitnesseclipse.definition.activeEditor">
+						</reference>
+					</visibleWhen>
+				</command>
+				<command
+                  commandId="fitnesseclipse.command.openBrowser"
+                  label="Open In Browser"
+                  style="push">
+					<visibleWhen>
+						<reference
+                        definitionId="fitnesseclipse.definition.activeEditor">
+						</reference>
+					</visibleWhen>
+				</command>
+			</menu>
+		</menuContribution>
+	</extension>
+
+	<extension
+         point="org.eclipse.core.expressions.definitions">
+		<definition
+            id="fitnesseclipse.definition.activeEditor">
+			<with
+               variable="activeEditorId">
+				<equals
+                  value="fitnesseclipse.ui.editors.FitnesseEditor">
+				</equals>
+			</with>
+		</definition>
+	</extension>
+	
+	<extension point="org.eclipse.ui.ide.markerResolution">
+      <markerResolutionGenerator
+         markerType="fitnesseclipse.core.marker.problemmarker"
+         class="fitnesseclipse.ui.quickfix.Quickfixer"/>
+    </extension>
+
+</plugin>

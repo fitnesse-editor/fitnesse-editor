@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: FitNesse Eclipse Core
+Bundle-SymbolicName: fitnesseclipse.core;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: fitnesseclipse.core.FiteditCore
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.ui,
+ org.eclipse.jdt.core;resolution:=optional
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Export-Package: fitnesseclipse.core
+Bundle-Vendor: FitNesse Eclipse

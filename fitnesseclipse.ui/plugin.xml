@@ -130,30 +130,31 @@
          point="org.eclipse.ui.menus">
 		<menuContribution
          	locationURI="popup:org.eclipse.ui.popup.any?after=additions">
-			<menu label="Fitnesse" />
-			<command 
-	               commandId="fitnesseclipse.core.addRemoveFitnesseNature"
-	               label="Disable Fitnesse Nature"
-	               style="push">
-				<visibleWhen
-	                  checkEnabled="false">
-					<with
-	                     variable="selection">
-						<count
-	                        value="1">
-						</count>
-						<iterate>
-							<adapt
-	                           type="org.eclipse.core.resources.IProject">
-								<test
-	                              property="org.eclipse.core.resources.projectNature"
-	                              value="fitnesseclipse.core.fitnesseNature">
-								</test>
-							</adapt>
-						</iterate>
-					</with>
-				</visibleWhen>
-			</command>
+			<menu label="Fitnesse">
+    			<command 
+    	               commandId="fitnesseclipse.core.addRemoveFitnesseNature"
+    	               label="Disable Fitnesse Nature"
+    	               style="push">
+    				<visibleWhen
+    	                  checkEnabled="false">
+    					<with
+    	                     variable="selection">
+    						<count
+    	                        value="1">
+    						</count>
+    						<iterate>
+    							<adapt
+    	                           type="org.eclipse.core.resources.IProject">
+    								<test
+    	                              property="org.eclipse.core.resources.projectNature"
+    	                              value="fitnesseclipse.core.fitnesseNature">
+    								</test>
+    							</adapt>
+    						</iterate>
+    					</with>
+    				</visibleWhen>
+    			</command>
+			</menu>
 		</menuContribution>
 
 		<menuContribution

@@ -25,18 +25,20 @@ public class FiteditUi extends AbstractUIPlugin {
         plugin = this;
 
         FiteditCore.getFiteditCore().setFitnesseRoot(Preferences.getFitnesseRoot());
-        FitnesseModel.getFitnesseModel().index();
+        FitnesseModel.load();
     }
 
     @Override
     public void stop(BundleContext context) throws Exception {
         super.stop(context);
         plugin = null;
+
+        FitnesseModel.store();
     }
 
     /**
      * Returns the shared instance
-     * 
+     *
      * @return the shared instance
      */
     public static FiteditUi getDefault() {
@@ -45,7 +47,7 @@ public class FiteditUi extends AbstractUIPlugin {
 
     /**
      * Returns an image descriptor for the image file at the given plug-in relative path
-     * 
+     *
      * @param path
      *            the path
      * @return the image descriptor

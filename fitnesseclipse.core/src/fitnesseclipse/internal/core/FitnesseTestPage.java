@@ -1,16 +1,17 @@
 package fitnesseclipse.internal.core;
 
-import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 
 import fitnesseclipse.core.IFitnesseTestPage;
 
+@SuppressWarnings("serial")
 public class FitnesseTestPage extends AbstractFitnessePage implements IFitnesseTestPage {
-    public FitnesseTestPage(IFile content) {
-        super(content);
+    public FitnesseTestPage(IProject project, String path) {
+        super(project, path);
     }
 
     @Override
     public String toString() {
-        return getFullPath().toString();
+        return getPath().toString();
     }
 }

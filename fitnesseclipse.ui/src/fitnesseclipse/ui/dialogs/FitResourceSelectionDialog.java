@@ -49,7 +49,7 @@ public class FitResourceSelectionDialog extends FilteredItemsSelectionDialog {
             @Override
             public boolean matchItem(Object item) {
                 IFitnessePage page = (IFitnessePage) item;
-                return matches(page.getParent().getName());
+                return matches(page.getFile().getParent().getName());
             }
 
             @Override
@@ -97,7 +97,7 @@ public class FitResourceSelectionDialog extends FilteredItemsSelectionDialog {
 
     @Override
     public String getElementName(Object item) {
-        return ((IFitnessePage) item).getParent().getName();
+        return ((IFitnessePage) item).getFile().getParent().getName();
     }
 
 }

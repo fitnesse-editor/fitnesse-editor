@@ -14,7 +14,7 @@ import fitnesseclipse.ui.dialogs.FitResourceSelectionDialog;
 
 /**
  * Our sample handler extends AbstractHandler, an IHandler base class.
- * 
+ *
  * @see org.eclipse.core.commands.IHandler
  * @see org.eclipse.core.commands.AbstractHandler
  */
@@ -42,7 +42,7 @@ public class OpenFitnesseResouceHandler extends AbstractHandler {
         }
 
         try {
-            IDE.openEditor(window.getActivePage(), page, true);
+            IDE.openEditor(window.getActivePage(), page.getFile(), true);
         } catch (PartInitException e) {
             e.printStackTrace();
         }

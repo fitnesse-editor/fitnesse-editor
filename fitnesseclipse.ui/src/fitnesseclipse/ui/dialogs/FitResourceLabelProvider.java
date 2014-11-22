@@ -70,10 +70,10 @@ public class FitResourceLabelProvider extends LabelProvider implements IStyledLa
             return null;
         }
 
-        String name = page.getParent().getName();
+        String name = page.getFile().getParent().getName();
 
         if (dialog.isDuplicateElement(page)) {
-            name += " - " + page.getFullPath();
+            name += " - " + page.getFile().getFullPath();
         }
 
         return name;

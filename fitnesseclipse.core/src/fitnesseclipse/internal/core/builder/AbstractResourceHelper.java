@@ -78,22 +78,22 @@ public class AbstractResourceHelper {
         return null;
     }
 
-    protected void addPage(IResource resource) {
+    protected void addPage(IResource resource) throws CoreException {
         IFile file = project.getFile(resource.getProjectRelativePath().removeLastSegments(1).append("properties.xml"));
 
         if (!file.exists()) {
             return;
         }
-
+        FitnesseModel model = FitnesseModel.getFitnesseModel();
         switch (getPageType(file)) {
             case STATIC:
-                FitnesseModel.addStaticPage(project.getFile(resource.getProjectRelativePath()), resource.getProject());
+                model.addStaticPage(project.getFile(resource.getProjectRelativePath()));
                 break;
             case SUITE:
-                FitnesseModel.addSuitePage(project.getFile(resource.getProjectRelativePath()), resource.getProject());
+                model.addSuitePage(project.getFile(resource.getProjectRelativePath()));
                 break;
             case TEST:
-                FitnesseModel.addTestPage(project.getFile(resource.getProjectRelativePath()), resource.getProject());
+                model.addTestPage(project.getFile(resource.getProjectRelativePath()));
                 break;
             default:
                 break;

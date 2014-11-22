@@ -8,24 +8,22 @@ import fitnesseclipse.ui.editors.FitnesseEditor;
 import fitnesseclipse.ui.utils.DialogUtils;
 
 /**
- * A hyper link to another fitnesse page.
- * 
- * links can either be relative to the FitNesseRoot folder if prepended with a '.' or relative to the current editors
- * file.
+ * A hyper link to another fitnesse page. links can either be relative to the FitNesseRoot folder if prepended with a
+ * '.' or relative to the current editors file.
  * <p>
  * Given the following FitNesseRoot:
- * 
+ *
  * <pre>
  * MySuite.MyTest
  * MySuite.MyIncludedTest
  * MyOtherSuite.MyOtherTest
  * </pre>
- * 
+ *
  * e.g. an !include from MySuite.MyTest to MySuite.MyIncludedTest could be written as !Include MyIncludedTest
  * <p>
  * e.g. an include from MyOtherSuite.MyOtherTest to MySuite.MyIncludedTest would be written as !Include
  * .MySuite.MyIncludedTest
- * 
+ *
  * @author Andrew Holland (a1dutch)
  * @since 2.0
  */
@@ -35,7 +33,7 @@ public class PageHyperlink extends AbstractHyperLink {
 
     /**
      * Creates a hyper link to the specified page with offset position and content length.
-     * 
+     *
      * @param findPage
      *            the page to link to.
      * @param offset
@@ -51,7 +49,7 @@ public class PageHyperlink extends AbstractHyperLink {
     @Override
     public void open() {
         try {
-            getWorkbenchPage().openEditor(new FileEditorInput(page), FitnesseEditor.EDITOR_ID);
+            getWorkbenchPage().openEditor(new FileEditorInput(page.getFile()), FitnesseEditor.EDITOR_ID);
         } catch (PartInitException e) {
             DialogUtils.openErrorDialog("title", "message", "status message", e);
         }

@@ -26,26 +26,20 @@ import fitnesseclipse.core.IFitnesseTestPage;
 
 public class FitnesseProject implements IFitnesseProject {
 
-    private IProject project;
+    private final IProject project;
 
     public FitnesseProject(IProject project) {
         this.project = project;
     }
 
     @Override
-    public IFitnesseTestPage createTestPage(IPath path) {
-        try {
-            String root = FiteditCore.getFiteditCore().getFitnesseRoot();
-            IFolder target = project.getFolder(root + "/TemplateLibrary/TestPage");
-            IPath destination = project.getFile(path.removeLastSegments(1)).getFullPath();
-            target.copy(destination, false, null);
-            buildAndWaitForEnd(project);
-            return FiteditCore.create(project).findTestPage(path);
-        } catch (CoreException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return null;
+    public IFitnesseTestPage createTestPage(IPath path) throws CoreException {
+        String root = FiteditCore.getFiteditCore().getFitnesseRoot();
+        IFolder target = project.getFolder(root + "/TemplateLibrary/TestPage");
+        IPath destination = project.getFile(path.removeLastSegments(1)).getFullPath();
+        target.copy(destination, false, null);
+        buildAndWaitForEnd(project);
+        return FiteditCore.create(project).findTestPage(path);
     }
 
     public static boolean buildAndWaitForEnd(final IProject project) {
@@ -83,17 +77,17 @@ public class FitnesseProject implements IFitnesseProject {
     }
 
     @Override
-    public IFitnesseSuitePage findSuitePage(IPath path) {
-        return FitnesseModel.getFitnesseModel().getSuitePage(path);
+    public IFitnesseSuitePage findSuitePage(IPath path) throws CoreException {
+        return FitnesseModel.getFitnesseModel().getSuitePage(project, path);
     }
 
     @Override
-    public IFitnesseTestPage findTestPage(IPath path) {
-        return FitnesseModel.getFitnesseModel().getTestPage(path);
+    public IFitnesseTestPage findTestPage(IPath path) throws CoreException {
+        return FitnesseModel.getFitnesseModel().getTestPage(project, path);
     }
 
     @Override
-    public IFitnessePage findPage(IPath path) {
+    public IFitnessePage findPage(IPath path) throws CoreException {
         IPath thePath = path.addTrailingSeparator().append("content.txt");
         IFitnessePage page = findSuitePage(thePath);
         if (page != null) {
@@ -109,8 +103,8 @@ public class FitnesseProject implements IFitnesseProject {
     }
 
     @Override
-    public IFitnesseStaticPage findStaticPage(IPath path) {
-        return FitnesseModel.getFitnesseModel().getStaticPage(path);
+    public IFitnesseStaticPage findStaticPage(IPath path) throws CoreException {
+        return FitnesseModel.getFitnesseModel().getStaticPage(project, path);
     }
 
 }

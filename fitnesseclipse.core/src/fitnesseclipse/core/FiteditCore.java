@@ -2,14 +2,16 @@ package fitnesseclipse.core;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.osgi.framework.BundleActivator;
+import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
 
 import fitnesseclipse.internal.core.FitnesseProject;
 
-public class FiteditCore implements BundleActivator {
+public class FiteditCore extends Plugin {
 
     private static FiteditCore core;
+
+    public static final String PLUGIN_ID = "fitnesseclipse.core";
 
     public static final String BUILDER_ID = "fitnesseclipse.core.fitnesseBuilder";
     public static final String MARKER_TYPE = "fitnesseclipse.core.marker.problemmarker";

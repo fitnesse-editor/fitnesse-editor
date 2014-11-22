@@ -38,7 +38,7 @@ public class FitnesseLinkDetector extends AbstractHyperlinkDetector {
 
         IHyperlink hyperlink = null;
         try {
-            if (FitSourcePartitionScanner.FIT_TABLE.equals(partition.getType())) {
+            if (FitSourcePartitionScanner.FIT_FIXTURE.equals(partition.getType())) {
                 String source = document.get(partitionOffset, partition.getLength());
                 String extractFqdn = extractFqdn(source);
 

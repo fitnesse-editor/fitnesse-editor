@@ -4,11 +4,11 @@ import org.eclipse.jface.text.rules.ICharacterScanner;
 import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.Token;
 
-class FitTableRule extends StartAndEndLineRule {
+class FixtureRule extends StartAndEndLineRule {
 
     private StartAndEndLineRule startAndEndLineRule;
 
-    public FitTableRule(IToken token) {
+    public FixtureRule(IToken token) {
         super("!|", "|", token);
 
         startAndEndLineRule = new StartAndEndLineRule("|", "|", token);
@@ -17,11 +17,10 @@ class FitTableRule extends StartAndEndLineRule {
     @Override
     public IToken evaluate(ICharacterScanner scanner, boolean resume) {
         if (resume) {
-            IToken token = startAndEndLineRule.evaluate(scanner, true);
-            if (this.token == token) {
-                return startAndEndLineRule.evaluate(scanner, true);
+            if (startAndEndLineRule.evaluate(scanner, true) == this.token) {
+                return evaluate(scanner, true);
             } else {
-                return token;
+                return this.token;
             }
         } else {
             IToken token = super.evaluate(scanner, resume);

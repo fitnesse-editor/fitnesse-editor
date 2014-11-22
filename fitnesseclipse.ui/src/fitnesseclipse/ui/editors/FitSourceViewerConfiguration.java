@@ -62,7 +62,7 @@ public class FitSourceViewerConfiguration extends SourceViewerConfiguration {
     public IContentAssistant getContentAssistant(ISourceViewer sourceViewer) {
         ContentAssistant assistant = new ContentAssistant();
         assistant.setContentAssistProcessor(new FitnesseContentAssistantProcessor(),
-                FitSourcePartitionScanner.FIT_TABLE);
+                FitSourcePartitionScanner.FIT_FIXTURE);
         assistant.enableAutoActivation(true);
         assistant.setAutoActivationDelay(500);
         assistant.setProposalPopupOrientation(IContentAssistant.CONTEXT_INFO_BELOW);
@@ -78,8 +78,8 @@ public class FitSourceViewerConfiguration extends SourceViewerConfiguration {
     @Override
     public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
         return new String[] { FitSourcePartitionScanner.FIT_COMMENT, FitSourcePartitionScanner.FIT_DEFINE,
-                FitSourcePartitionScanner.FIT_INCLUDE, FitSourcePartitionScanner.FIT_TABLE,
-                IDocument.DEFAULT_CONTENT_TYPE };
+                FitSourcePartitionScanner.FIT_INCLUDE, FitSourcePartitionScanner.FIT_FIXTURE,
+                FitSourcePartitionScanner.FIT_TABLE, IDocument.DEFAULT_CONTENT_TYPE };
     }
 
     protected FitScanner getFitScanner() {
@@ -108,6 +108,11 @@ public class FitSourceViewerConfiguration extends SourceViewerConfiguration {
                 colorManager.getColor(IFitColorConstants.ACTION_BOLD)));
         reconciler.setDamager(nonRuleBasedDamagerRepairer, FitSourcePartitionScanner.FIT_INCLUDE);
         reconciler.setRepairer(nonRuleBasedDamagerRepairer, FitSourcePartitionScanner.FIT_INCLUDE);
+
+        nonRuleBasedDamagerRepairer = new NonRuleBasedDamagerRepairer(new TextAttribute(
+                colorManager.getColor(IFitColorConstants.TABLE)));
+        reconciler.setDamager(nonRuleBasedDamagerRepairer, FitSourcePartitionScanner.FIT_FIXTURE);
+        reconciler.setRepairer(nonRuleBasedDamagerRepairer, FitSourcePartitionScanner.FIT_FIXTURE);
 
         nonRuleBasedDamagerRepairer = new NonRuleBasedDamagerRepairer(new TextAttribute(
                 colorManager.getColor(IFitColorConstants.TABLE)));

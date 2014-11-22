@@ -17,9 +17,9 @@ public class FitDocumentProvider extends FileDocumentProvider {
         IDocument document = super.createDocument(element);
         if (document != null) {
             IDocumentPartitioner partitioner = new FastPartitioner(new FitSourcePartitionScanner(), new String[] {
-                    IDocument.DEFAULT_CONTENT_TYPE, FitSourcePartitionScanner.FIT_COMMENT,
-                    FitSourcePartitionScanner.FIT_DEFINE, FitSourcePartitionScanner.FIT_INCLUDE,
-                    FitSourcePartitionScanner.FIT_TABLE }) {
+                IDocument.DEFAULT_CONTENT_TYPE, FitSourcePartitionScanner.FIT_COMMENT,
+                FitSourcePartitionScanner.FIT_DEFINE, FitSourcePartitionScanner.FIT_INCLUDE,
+                FitSourcePartitionScanner.FIT_FIXTURE, FitSourcePartitionScanner.FIT_TABLE }) {
 
                 @Override
                 public void connect(IDocument document, boolean delayInitialization) {
@@ -31,13 +31,13 @@ public class FitDocumentProvider extends FileDocumentProvider {
                     StringBuffer buffer = new StringBuffer();
 
                     ITypedRegion[] partitions = computePartitioning(0, document.getLength());
-                    for (int i = 0; i < partitions.length; i++) {
+                    for (ITypedRegion partition : partitions) {
                         try {
-                            buffer.append("Partition type: " + partitions[i].getType() + ", offset: "
-                                    + partitions[i].getOffset() + ", length: " + partitions[i].getLength());
+                            buffer.append("Partition type: " + partition.getType() + ", offset: "
+                                    + partition.getOffset() + ", length: " + partition.getLength());
                             buffer.append("\n");
                             buffer.append("Text:\n");
-                            buffer.append(document.get(partitions[i].getOffset(), partitions[i].getLength()));
+                            buffer.append(document.get(partition.getOffset(), partition.getLength()));
                             buffer.append("\n---------------------------\n\n\n");
                         } catch (BadLocationException e) {
                             e.printStackTrace();

@@ -13,6 +13,7 @@ public class FitSourcePartitionScanner extends RuleBasedPartitionScanner {
     public static final String FIT_COMMENT = "__fit_comment";
     public static final String FIT_DEFINE = "__fit_define";
     public static final String FIT_INCLUDE = "__fit_include";
+    public static final String FIT_FIXTURE = "__fit_fixture";
     public static final String FIT_TABLE = "__fit_table";
 
     public FitSourcePartitionScanner() {
@@ -21,7 +22,8 @@ public class FitSourcePartitionScanner extends RuleBasedPartitionScanner {
         rules.add(new MultiLineRule("!define ", ")", new Token(FIT_DEFINE)));
         rules.add(new MultiLineRule("!define ", "}", new Token(FIT_DEFINE)));
         rules.add(newEndOfLineRule("!include", FIT_INCLUDE));
-        rules.add(new FitTableRule(new Token(FIT_TABLE)));
+        rules.add(new FixtureRule(new Token(FIT_FIXTURE)));
+        rules.add(new TableRule(new Token(FIT_TABLE)));
         setPredicateRules(rules.toArray(new IPredicateRule[rules.size()]));
     }
 

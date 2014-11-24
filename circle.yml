@@ -1,3 +1,13 @@
 dependencies: 
-  pre:
-    - mvn clean install
+  override:
+    - echo 'Skipping Dependency Check'
+    
+test:
+  override:
+    - mvn clean verify
+  post:
+    - cp fitnesseclipse.core.tests/target/surefire-reports/*.xml $CI_REPORTS
+    
+general:
+  artifacts:
+    - fitnesseclipse.parent/fitnesseclipse.site/target

@@ -14,6 +14,7 @@
         <module>fitnesseclipse.site</module>
 
         <module>fitnesseclipse.core</module>
+        <module>fitnesseclipse.core.tests</module>
         <module>fitnesseclipse.ui</module>
     </modules>
 
@@ -26,6 +27,11 @@
             <id>luna</id>
             <layout>p2</layout>
             <url>http://download.eclipse.org/releases/luna</url>
+        </repository>
+        <repository>
+            <id>orbit</id>
+            <layout>p2</layout>
+            <url>http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository/</url>
         </repository>
     </repositories>
 

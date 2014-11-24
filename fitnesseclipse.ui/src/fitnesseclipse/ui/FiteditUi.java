@@ -1,12 +1,14 @@
 package fitnesseclipse.ui;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 import fitnesseclipse.core.FiteditCore;
-import fitnesseclipse.core.FitnesseModel;
-import fitnesseclipse.ui.utils.Preferences;
+import fitnesseclipse.ui.preferences.PreferenceConstants;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -24,16 +26,25 @@ public class FiteditUi extends AbstractUIPlugin {
         super.start(context);
         plugin = this;
 
-        FiteditCore.getFiteditCore().setFitnesseRoot(Preferences.getFitnesseRoot());
-        FitnesseModel.load();
+        getPreferenceStore().addPropertyChangeListener(new IPropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent event) {
+                if (PreferenceConstants.FITNESSE_ROOT_DIR.equals(event.getProperty())) {
+                    try {
+                        FiteditCore.getFiteditCore().getModel().setFitnesseRoot((String) event.getNewValue());
+                    } catch (CoreException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     @Override
     public void stop(BundleContext context) throws Exception {
         super.stop(context);
         plugin = null;
-
-        FitnesseModel.store();
     }
 
     /**

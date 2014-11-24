@@ -13,7 +13,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.FilteredItemsSelectionDialog;
 
-import fitnesseclipse.core.FitnesseModel;
+import fitnesseclipse.core.FiteditCore;
 import fitnesseclipse.core.IFitnessePage;
 import fitnesseclipse.ui.FiteditUi;
 
@@ -75,7 +75,7 @@ public class FitResourceSelectionDialog extends FilteredItemsSelectionDialog {
             IProgressMonitor progressMonitor) throws CoreException {
         progressMonitor.beginTask("Open..", 10);
 
-        List<IFitnessePage> pages = FitnesseModel.getFitnesseModel().getPages();
+        List<IFitnessePage> pages = FiteditCore.getFiteditCore().getModel().getPages();
 
         int total = 0;
         int unit = pages.size() / 10;

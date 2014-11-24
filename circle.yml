@@ -10,4 +10,4 @@ test:
     
 general:
   artifacts:
-    - "fitnesseclipse.parent/fitnesseclipse.site/target"
+    - "fitnesseclipse.site/target"

@@ -1,10 +1,10 @@
 package fitnesseclipse.core.tests;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.WorkspaceJob;
-import org.eclipse.core.runtime.jobs.IJobManager;
-import org.eclipse.core.runtime.jobs.Job;
 import org.junit.Before;
+
+import fitnesseclipse.core.tests.helpers.JobHelper;
+import fitnesseclipse.core.tests.helpers.WorkspaceHelper;
 
 public class AbstractFitnesseTest {
 
@@ -21,22 +21,12 @@ public class AbstractFitnesseTest {
 
     @Before
     public void setUp() throws Exception {
-        ProjectUtils.deleteAllProjects();
+        WorkspaceHelper.cleanWorkspace();
     }
 
     public IProject importProject(String projectName) throws Exception {
-        try {
-            return ProjectUtils.importProject(projectName);
-        } finally {
-            IJobManager jobManager = Job.getJobManager();
-            jobManager.suspend();
-            Job[] find = jobManager.find(null);
-            for (Job job : find) {
-                if (job instanceof WorkspaceJob) {
-                    job.join();
-                }
-            }
-            jobManager.resume();
-        }
+        IProject project = ProjectUtils.importProject(projectName);
+        JobHelper.waitForJobsToComplete();
+        return project;
     }
 }

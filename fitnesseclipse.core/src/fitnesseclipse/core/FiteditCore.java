@@ -15,14 +15,12 @@ public class FiteditCore extends Plugin {
     public static final String MARKER_TYPE = "fitnesseclipse.core.marker.problemmarker";
     private static FiteditCore core;
 
-    private IFitnesseModel model;
-
     public static FiteditCore getFiteditCore() {
         return core;
     }
 
-    public IFitnesseModel getModel() {
-        return model;
+    public IFitnesseModel getModel() throws CoreException {
+        return FitnesseModel.getFitnesseModel();
     }
 
     public static IFitnesseProject create(IProject project) {
@@ -40,7 +38,7 @@ public class FiteditCore extends Plugin {
         super.start(bundleContext);
         core = this;
 
-        model = FitnesseModel.load();
+        FitnesseModel.load();
     }
 
     @Override

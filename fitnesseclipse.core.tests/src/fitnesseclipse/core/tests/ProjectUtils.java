@@ -2,10 +2,8 @@ package fitnesseclipse.core.tests;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.Collection;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
@@ -23,27 +21,17 @@ public class ProjectUtils {
     }
 
     public static IProject importProject(String projectName) throws Exception {
-        File directory = new File("projects/" + projectName);
+        File directory = new File(ResourcesPlugin.getWorkspace().getRoot().getLocation().toFile() + "/" + projectName);
+
+        File root = ResourcesPlugin.getWorkspace().getRoot().getLocation().toFile();
+        FileUtils.copyDirectoryToDirectory(new File("projects/" + projectName), root);
+
         try (FileInputStream fis = new FileInputStream(new File(directory + "/.project"))) {
             IProjectDescription description = getWorkspace().loadProjectDescription(fis);
             IProject project = getWorkspaceRoot().getProject(description.getName());
-            project.create(description, null);
-            project.open(null);
-
-            Collection<File> listFiles = FileUtils.listFilesAndDirs(directory,
-                    FileFilterUtils.notFileFilter(FileFilterUtils.nameFileFilter(".project")),
-                    FileFilterUtils.falseFileFilter());
-
-            for (File file : listFiles) {
-                if (file.isDirectory()) {
-                    FileUtils.copyDirectory(file, project.getLocation().toFile());
-                } else {
-                    FileUtils.copyFileToDirectory(file, project.getLocation().toFile());
-                }
-            }
-
-            project.refreshLocal(IResource.DEPTH_INFINITE, null);
-
+            project.create(description, IResource.DEPTH_INFINITE, null);
+            project.open(IResource.DEPTH_INFINITE, null);
+            project.getDescription().getBuildSpec();
             return project;
         }
     }

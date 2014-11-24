@@ -19,7 +19,7 @@ public class FitnesseNatureTest extends AbstractFitnesseTest {
 
     @Test
     public void shouldAddBuilderWhenNatureIsAdded() throws Exception {
-        IProject project = ProjectUtils.importProject(GENERAL_PROJECT);
+        IProject project = importProject(GENERAL_PROJECT);
         assertBuilderLength(project, 1);
         assertNatureNotExists(project);
 
@@ -35,11 +35,10 @@ public class FitnesseNatureTest extends AbstractFitnesseTest {
 
     @Test
     public void shouldNotAddBuilderWhenBuilderExists() throws Exception {
-        IProject project = ProjectUtils.importProject(BUILDER_ONLY_PROJECT);
+        IProject project = importProject(BUILDER_ONLY_PROJECT);
         assertNatureNotExists(project);
-        assertBuilderLength(project, 2);
+        assertBuilderLength(project, 1);
         assertJavaBuilderExists(project);
-        assertFitnessBuilderExists(project);
 
         addNature(project);
 
@@ -51,7 +50,7 @@ public class FitnesseNatureTest extends AbstractFitnesseTest {
 
     @Test
     public void shouldRemoveBuilderWhenNatureIsRemoved() throws Exception {
-        IProject project = ProjectUtils.importProject(FITNESSE_PROJECT);
+        IProject project = importProject(FITNESSE_PROJECT);
         assertNatureExists(project);
         assertBuilderLength(project, 2);
         assertJavaBuilderExists(project);

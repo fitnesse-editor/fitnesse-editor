@@ -26,9 +26,9 @@ public class AbstractFitnesseTest {
     public static final String FITNESSE_PROJECT = "fitnesse-project";
     public static final String GENERAL_PROJECT = "general-project";
 
-    public static final String STATIC_PAGE = "/FitNesseRoot/StaticPage/content.txt";
-    public static final String SUITE_PAGE = "/FitNesseRoot/SuitePage/content.txt";
-    public static final String TEST_PAGE = "/FitNesseRoot/TestPage/content.txt";
+    public static final String STATIC_PAGE = "/FitNesseRoot/StaticPage";
+    public static final String SUITE_PAGE = "/FitNesseRoot/SuitePage";
+    public static final String TEST_PAGE = "/FitNesseRoot/TestPage";
 
     public IProject importProject(String projectName) throws Exception {
         System.out.println("importing: " + projectName);

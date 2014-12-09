@@ -1,18 +1,10 @@
 package fitnesseclipse.core.tests;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jdt.core.JavaCore;
 import org.junit.Test;
 
-import fitnesseclipse.core.FiteditCore;
 import fitnesseclipse.core.FitnesseNature;
 
 public class FitnesseNatureTest extends AbstractFitnesseTest {
@@ -27,7 +19,6 @@ public class FitnesseNatureTest extends AbstractFitnesseTest {
 
         assertNatureExists(project);
         assertNatureProject(project);
-
         assertBuilderLength(project, 2);
         assertJavaBuilderExists(project);
         assertFitnessBuilderExists(project);
@@ -59,7 +50,6 @@ public class FitnesseNatureTest extends AbstractFitnesseTest {
         removeNature(project);
 
         assertNatureNotExists(project);
-
         assertBuilderLength(project, 1);
         assertJavaBuilderExists(project);
     }
@@ -71,30 +61,6 @@ public class FitnesseNatureTest extends AbstractFitnesseTest {
         System.arraycopy(oldNatures, 0, newNatures, 0, oldNatures.length - 1);
         description.setNatureIds(newNatures);
         project.setDescription(description, null);
-    }
-
-    private void assertBuilderLength(IProject project, int length) throws CoreException {
-        assertThat(project.getDescription().getBuildSpec().length, is(equalTo(length)));
-    }
-
-    private void assertFitnessBuilderExists(IProject project) throws CoreException {
-        assertThat(project.getDescription().getBuildSpec()[1].getBuilderName(), is(equalTo(FiteditCore.BUILDER_ID)));
-    }
-
-    private void assertJavaBuilderExists(IProject project) throws CoreException {
-        assertThat(project.getDescription().getBuildSpec()[0].getBuilderName(), is(equalTo(JavaCore.BUILDER_ID)));
-    }
-
-    private void assertNatureExists(IProject project) throws CoreException {
-        assertThat(project.getNature(FitnesseNature.NATURE_ID), is(notNullValue()));
-    }
-
-    private void assertNatureNotExists(IProject project) throws CoreException {
-        assertThat(project.getNature(FitnesseNature.NATURE_ID), is(nullValue()));
-    }
-
-    private void assertNatureProject(IProject project) throws CoreException {
-        assertThat(project.getNature(FitnesseNature.NATURE_ID).getProject(), is(equalTo(project)));
     }
 
     private void addNature(IProject project) throws CoreException {

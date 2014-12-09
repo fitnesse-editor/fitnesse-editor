@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: FitNesse Eclipse UI Tests
+Bundle-SymbolicName: fitnesseclipse.ui.tests;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: FitNesse Eclipse
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Fragment-Host: fitnesseclipse.ui
+Require-Bundle: org.junit,
+ fitnesseclipse.core,
+ fitnesseclipse.core.tests,
+ org.eclipse.swt,
+ org.eclipse.ui,
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.eclipse.swtbot.eclipse.finder;bundle-version="2.2.1",
+ org.eclipse.swtbot.eclipse.junit.headless;bundle-version="2.2.1",
+ org.eclipse.swtbot.junit4_x;bundle-version="2.2.1"

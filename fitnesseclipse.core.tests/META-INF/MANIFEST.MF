@@ -14,3 +14,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Import-Package: fitnesseclipse.core,
  fitnesseclipse.core.internal.model
 Bundle-ActivationPolicy: lazy
+Export-Package: fitnesseclipse.core.tests,
+ fitnesseclipse.core.tests.helpers

@@ -13,7 +13,7 @@ public interface IFitnesseModel {
 
     public abstract String getFitnesseRoot();
 
-    public abstract List<IFitnessePage> getPages();
+    public abstract List<IFitnessePage> getPages() throws CoreException;
 
     public abstract void addSuitePage(IFile content) throws CoreException;
 

@@ -63,7 +63,7 @@ public class FitnesseLinkDetector extends AbstractHyperlinkDetector {
                     IPath path;
                     if (page.startsWith(".")) {
                         path = project.getProjectRelativePath().append(Preferences.getFitnesseRoot())
-                                .addTrailingSeparator().append(page.substring(1));
+                                .addTrailingSeparator().append(page.substring(1).replaceAll("\\.", "/"));
                     } else {
                         path = editorFile.getProjectRelativePath().removeLastSegments(2).addTrailingSeparator()
                                 .append(page);

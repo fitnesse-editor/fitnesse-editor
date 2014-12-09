@@ -9,62 +9,80 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>fitnesseclipse.target</module>
+
         <module>fitnesseclipse</module>
-        <module>fitnesseclipse.feature</module>
-        <module>fitnesseclipse.site</module>
 
         <module>fitnesseclipse.core</module>
-        <module>fitnesseclipse.core.tests</module>
         <module>fitnesseclipse.ui</module>
+
+        <module>fitnesseclipse.feature</module>
+
+        <module>fitnesseclipse.core.tests</module>
+<!--         <module>fitnesseclipse.ui.tests</module> -->
+
+        <module>fitnesseclipse.site</module>
     </modules>
 
     <properties>
-        <tycho-version>0.21.0</tycho-version>
+        <tycho-version>0.22.0</tycho-version>
+        <target-platform>luna</target-platform>
+        <platform-version>[3.9,4.0)</platform-version>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>luna</id>
-            <layout>p2</layout>
-            <url>http://download.eclipse.org/releases/luna</url>
-        </repository>
-        <repository>
-            <id>orbit</id>
-            <layout>p2</layout>
-            <url>http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository/</url>
-        </repository>
-    </repositories>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.eclipse.tycho</groupId>
                 <artifactId>tycho-maven-plugin</artifactId>
-                <version>${tycho-version}</version>
                 <extensions>true</extensions>
-            </plugin>
-            <plugin>
-                <groupId>org.eclipse.tycho</groupId>
-                <artifactId>tycho-versions-plugin</artifactId>
-                <version>${tycho-version}</version>
-                <executions>
-                    <execution>
-                        <id>versions</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>update-pom</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.eclipse.tycho</groupId>
                 <artifactId>target-platform-configuration</artifactId>
                 <configuration>
+                    <target>
+                        <artifact>
+                            <groupId>fitnesseclipse</groupId>
+                            <artifactId>fitnesseclipse.target</artifactId>
+                            <version>${project.version}</version>
+                            <classifier>${target-platform}</classifier>
+                        </artifact>
+                    </target>
                     <resolver>p2</resolver>
-                    <dependency-resolution>
-                        <optionalDependencies>require</optionalDependencies>
-                    </dependency-resolution>
+                    <pomDependencies>consider</pomDependencies>
+                    <environments>
+                        <environment>
+                            <os>macosx</os>
+                            <ws>cocoa</ws>
+                            <arch>x86</arch>
+                        </environment>
+                        <environment>
+                            <os>macosx</os>
+                            <ws>cocoa</ws>
+                            <arch>x86_64</arch>
+                        </environment>
+                        <environment>
+                            <os>win32</os>
+                            <ws>win32</ws>
+                            <arch>x86</arch>
+                        </environment>
+                        <environment>
+                            <os>win32</os>
+                            <ws>win32</ws>
+                            <arch>x86_64</arch>
+                        </environment>
+                        <environment>
+                            <os>linux</os>
+                            <ws>gtk</ws>
+                            <arch>x86</arch>
+                        </environment>
+                        <environment>
+                            <os>linux</os>
+                            <ws>gtk</ws>
+                            <arch>x86_64</arch>
+                        </environment>
+                    </environments>
                 </configuration>
             </plugin>
         </plugins>
@@ -72,45 +90,23 @@
             <plugins>
                 <plugin>
                     <groupId>org.eclipse.tycho</groupId>
+                    <artifactId>tycho-surefire-plugin</artifactId>
+                    <version>${tycho-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.eclipse.tycho</groupId>
+                    <artifactId>tycho-maven-plugin</artifactId>
+                    <version>${tycho-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.eclipse.tycho</groupId>
                     <artifactId>target-platform-configuration</artifactId>
                     <version>${tycho-version}</version>
-                    <configuration>
-                        <resolver>p2</resolver>
-                        <pomDependencies>consider</pomDependencies>
-                        <ignoreTychoRepositories>true</ignoreTychoRepositories>
-                        <environments>
-                            <environment>
-                                <os>macosx</os>
-                                <ws>cocoa</ws>
-                                <arch>x86</arch>
-                            </environment>
-                            <environment>
-                                <os>macosx</os>
-                                <ws>cocoa</ws>
-                                <arch>x86_64</arch>
-                            </environment>
-                            <environment>
-                                <os>win32</os>
-                                <ws>win32</ws>
-                                <arch>x86</arch>
-                            </environment>
-                            <environment>
-                                <os>win32</os>
-                                <ws>win32</ws>
-                                <arch>x86_64</arch>
-                            </environment>
-                            <environment>
-                                <os>linux</os>
-                                <ws>gtk</ws>
-                                <arch>x86</arch>
-                            </environment>
-                            <environment>
-                                <os>linux</os>
-                                <ws>gtk</ws>
-                                <arch>x86_64</arch>
-                            </environment>
-                        </environments>
-                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.eclipse.tycho</groupId>
+                    <artifactId>tycho-p2-plugin</artifactId>
+                    <version>${tycho-version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

@@ -60,7 +60,7 @@ public class FitnesseModel implements IFitnesseModel, Serializable {
     }
 
     @Override
-    public List<IFitnessePage> getPages() {
+    public List<IFitnessePage> getPages() throws CoreException {
         List<IFitnessePage> all = new ArrayList<IFitnessePage>();
 
         for (IProject project : getProjects()) {
@@ -91,14 +91,20 @@ public class FitnesseModel implements IFitnesseModel, Serializable {
         return all;
     }
 
-    private IProject[] getProjects() {
-        return ResourcesPlugin.getWorkspace().getRoot().getProjects();
+    private IProject[] getProjects() throws CoreException {
+        List<IProject> projects = new ArrayList<IProject>();
+        for (IProject project : ResourcesPlugin.getWorkspace().getRoot().getProjects()) {
+            if (FitnesseNature.hasNature(project)) {
+                projects.add(project);
+            }
+        }
+        return projects.toArray(new IProject[projects.size()]);
     }
 
     @Override
     public void addSuitePage(IFile content) throws CoreException {
         Set<String> pages = getProjectSuitePages(content.getProject());
-        pages.add(content.getProjectRelativePath().toString());
+        pages.add(content.getProjectRelativePath().removeLastSegments(1).toString());
         suites.put(content.getProject().getName(), pages);
     }
 
@@ -110,7 +116,7 @@ public class FitnesseModel implements IFitnesseModel, Serializable {
     @Override
     public IFitnesseSuitePage getSuitePage(IProject project, IPath path) {
         if (getProjectSuitePages(project).contains(fileRelativeToProject(project, path))) {
-            return new FitnesseSuitePage(project, path.toString());
+            return new FitnesseSuitePage(project, path.append("content.txt").toString());
         }
         return null;
     }
@@ -118,7 +124,7 @@ public class FitnesseModel implements IFitnesseModel, Serializable {
     @Override
     public void addTestPage(IFile content) throws CoreException {
         Set<String> pages = getProjectTestPages(content.getProject());
-        pages.add(content.getProjectRelativePath().toString());
+        pages.add(content.getProjectRelativePath().removeLastSegments(1).toString());
         tests.put(content.getProject().getName(), pages);
     }
 
@@ -130,7 +136,7 @@ public class FitnesseModel implements IFitnesseModel, Serializable {
     @Override
     public IFitnesseTestPage getTestPage(IProject project, IPath path) {
         if (getProjectTestPages(project).contains(fileRelativeToProject(project, path))) {
-            return new FitnesseTestPage(project, path.toString());
+            return new FitnesseTestPage(project, path.append("content.txt").toString());
         }
         return null;
     }
@@ -138,7 +144,7 @@ public class FitnesseModel implements IFitnesseModel, Serializable {
     @Override
     public void addStaticPage(IFile content) throws CoreException {
         Set<String> pages = getProjectStaticPages(content.getProject());
-        pages.add(content.getProjectRelativePath().toString());
+        pages.add(content.getProjectRelativePath().removeLastSegments(1).toString());
         statics.put(content.getProject().getName(), pages);
     }
 
@@ -150,12 +156,15 @@ public class FitnesseModel implements IFitnesseModel, Serializable {
     @Override
     public IFitnesseStaticPage getStaticPage(IProject project, IPath path) {
         if (getProjectStaticPages(project).contains(fileRelativeToProject(project, path))) {
-            return new FitnesseStaticPage(project, path.toString());
+            return new FitnesseStaticPage(project, path.append("content.txt").toString());
         }
         return null;
     }
 
     private String fileRelativeToProject(IProject project, IPath path) {
+        if (project.getFullPath().isPrefixOf(path)) {
+            return path.makeRelativeTo(project.getFullPath()).toString();
+        }
         return project.getFile(path).getProjectRelativePath().toString();
     }
 

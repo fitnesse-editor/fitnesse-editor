@@ -1,16 +1,13 @@
 package fitnesseclipse.core.tests;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.eclipse.core.resources.IProject;
 import org.junit.Test;
 
 import fitnesseclipse.core.FiteditCore;
-import fitnesseclipse.core.FitnesseNature;
 import fitnesseclipse.core.IFitnesseModel;
 import fitnesseclipse.core.internal.model.FitnesseModel;
 
@@ -25,50 +22,48 @@ public class FitnesseModelTest extends AbstractFitnesseTest {
     @Test
     public void shouldNotIndexWhenNatureNotPresent() throws Exception {
         IProject project = importProject(GENERAL_PROJECT);
-        assertThat(project.getNature(FitnesseNature.NATURE_ID), is(nullValue()));
+        assertNatureNotExists(project);
 
-        IFitnesseModel model = FitnesseModel.load();
+        FitnesseModel.load();
 
-        assertThat(model.getPages().size(), is(equalTo(0)));
-        assertThat(model.getStaticPage(project, project.getFile(STATIC_PAGE).getFullPath()), is(nullValue()));
-        assertThat(model.getSuitePage(project, project.getFile(SUITE_PAGE).getFullPath()), is(nullValue()));
-        assertThat(model.getTestPage(project, project.getFile(TEST_PAGE).getFullPath()), is(nullValue()));
+        assertPageSize(0);
+        assertStaticPageNotExists(project, STATIC_PAGE);
+        assertSuitePageNotExists(project, SUITE_PAGE);
+        assertTestPageNotExists(project, TEST_PAGE);
     }
 
     @Test
     public void shouldIndexWhenNaturePresent() throws Exception {
         IProject project = importProject(FITNESSE_PROJECT);
-        assertThat(project.getNature(FitnesseNature.NATURE_ID), is(notNullValue()));
+        assertNatureExists(project);
 
-        IFitnesseModel model = FitnesseModel.load();
+        FitnesseModel.load();
 
-        assertThat(model.getPages().size(), is(equalTo(3)));
-        assertThat(model.getStaticPage(project, project.getFile(STATIC_PAGE).getProjectRelativePath()),
-                is(notNullValue()));
-        assertThat(model.getSuitePage(project, project.getFile(SUITE_PAGE).getProjectRelativePath()),
-                is(notNullValue()));
-        assertThat(model.getTestPage(project, project.getFile(TEST_PAGE).getProjectRelativePath()), is(notNullValue()));
+        assertPageSize(3);
+        assertStaticPageExists(project, STATIC_PAGE);
+        assertSuitePageExists(project, SUITE_PAGE);
+        assertTestPageExists(project, TEST_PAGE);
     }
 
     @Test
     public void shouldReturnDefaultFitnesseRoot() throws Exception {
-        IFitnesseModel model = FitnesseModel.load();
+        FitnesseModel.load();
 
-        assertThat(model.getFitnesseRoot(), is(equalTo(DEFAULT_ROOT)));
-        assertThat(model.getPages().size(), is(equalTo(0)));
+        assertRoot(DEFAULT_ROOT);
+        assertPageSize(0);
     }
 
     @Test
     public void shouldReturnNonDefaultFitnesseRoot() throws Exception {
         IFitnesseModel model = FitnesseModel.load();
 
-        assertThat(model.getFitnesseRoot(), is(equalTo(DEFAULT_ROOT)));
-        assertThat(model.getPages().size(), is(equalTo(0)));
+        assertRoot(DEFAULT_ROOT);
+        assertPageSize(0);
 
         model.setFitnesseRoot(ALT_ROOT);
 
-        assertThat(model.getFitnesseRoot(), is(equalTo(ALT_ROOT)));
-        assertThat(model.getPages().size(), is(equalTo(0)));
+        assertRoot(ALT_ROOT);
+        assertPageSize(0);
     }
 
 }

@@ -13,3 +13,5 @@ Bundle-ActivationPolicy: lazy
 Export-Package: fitnesseclipse.core;uses:="org.eclipse.core.runtime,org.eclipse.core.resources,org.osgi.framework",
  fitnesseclipse.core.internal.model;x-friends:="fitnesseclipse.core.tests"
 Bundle-Vendor: FitNesse Eclipse
+Import-Package: fitnesseclipse.logging,
+ org.slf4j;version="1.7.2"

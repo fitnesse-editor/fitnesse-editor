@@ -33,5 +33,7 @@ Export-Package: fitnesseclipse.ui,
 Bundle-ClassPath: .,
  lib/js-1.7-R3.jar
 Bundle-Version: 1.0.0.qualifier
-Import-Package: fitnesseclipse.core
+Import-Package: fitnesseclipse.core,
+ fitnesseclipse.logging,
+ org.slf4j;version="1.7.2"
 Bundle-ActivationPolicy: lazy

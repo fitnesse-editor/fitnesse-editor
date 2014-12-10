@@ -13,6 +13,8 @@
 
         <module>fitnesseclipse</module>
 
+        <module>fitnesseclipse.logging</module>
+
         <module>fitnesseclipse.core</module>
         <module>fitnesseclipse.ui</module>
 

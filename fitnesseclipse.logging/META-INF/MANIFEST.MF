@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: FitNesse Eclipse Logging
+Bundle-SymbolicName: fitnesseclipse.logging;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Bundle-Vendor: FitNesse Eclipse
+Export-Package: fitnesseclipse.logging
+Require-Bundle: org.eclipse.core.runtime
+Import-Package: org.apache.log4j;version="1.2.15",
+ org.apache.log4j.config;version="1.2.15",
+ org.apache.log4j.spi;version="1.2.15",
+ org.slf4j
+Bundle-Activator: fitnesseclipse.logging.FitnesseLogging

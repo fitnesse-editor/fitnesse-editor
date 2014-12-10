@@ -8,17 +8,21 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
+import org.slf4j.Logger;
 
 import fitnesseclipse.core.FiteditCore;
+import fitnesseclipse.logging.LoggerFactory;
 
 public class PageChecker {
+
+    private static final Logger logger = LoggerFactory.getLogger(PageChecker.class);
+
     private static final String INCLUDE = "!include ";
 
     public static void check(String fitnesseRoot, IProject project, IResource resource) {
-        System.out.println(resource);
+        logger.debug("Checking Resource: {}", resource);
 
         String resourcePath = resource.getFullPath().toString();
-
         if (!(resourcePath.indexOf(fitnesseRoot) != -1)) {
             return;
         }

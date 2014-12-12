@@ -1,9 +1,3 @@
-checkout:
-  post:
-    - git config user.email "fitnesseclipse@a1dutch.co.uk"
-    - git config user.name "fitnesseclipse"
-    - git submodule update --init
-    
 dependencies: 
   override:
     - echo 'Skipping Dependency Check'

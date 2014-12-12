@@ -94,7 +94,7 @@ public class FitnesseModel implements IFitnesseModel, Serializable {
     private IProject[] getProjects() throws CoreException {
         List<IProject> projects = new ArrayList<IProject>();
         for (IProject project : ResourcesPlugin.getWorkspace().getRoot().getProjects()) {
-            if (FitnesseNature.hasNature(project)) {
+            if (project.isAccessible() && FitnesseNature.hasNature(project)) {
                 projects.add(project);
             }
         }

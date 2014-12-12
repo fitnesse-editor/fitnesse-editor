@@ -1,1 +1,4 @@
+!include IncludedPage
+!include .IncludedPage
+
 <test page>

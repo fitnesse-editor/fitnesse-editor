@@ -5,11 +5,15 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.junit.Test;
 
 import fitnesseclipse.core.FiteditCore;
+import fitnesseclipse.core.IFitnessePage;
 import fitnesseclipse.core.IFitnesseProject;
 
 public class FitnesseProjectTest extends AbstractFitnesseTest {
@@ -31,29 +35,40 @@ public class FitnesseProjectTest extends AbstractFitnesseTest {
     public void shouldFindSuitePage() throws Exception {
         IFitnesseProject project = FiteditCore.create(importProject(FITNESSE_PROJECT));
 
-        assertThat(project.findSuitePage(new Path(SUITE_PAGE)), is(notNullValue()));
+        assertPageWithNoMarkers(project, SUITE_PAGE);
     }
 
     @Test
     public void shouldFindStaticPage() throws Exception {
         IFitnesseProject project = FiteditCore.create(importProject(FITNESSE_PROJECT));
 
-        assertThat(project.findStaticPage(new Path(STATIC_PAGE)), is(notNullValue()));
+        assertPageWithNoMarkers(project, STATIC_PAGE);
     }
 
     @Test
     public void shouldFindTestPage() throws Exception {
         IFitnesseProject project = FiteditCore.create(importProject(FITNESSE_PROJECT));
 
-        assertThat(project.findTestPage(new Path(TEST_PAGE)), is(notNullValue()));
+        assertPageWithNoMarkers(project, TEST_PAGE);
     }
 
     @Test
-    public void shouldFindPage() throws Exception {
+    public void shouldFindPages() throws Exception {
         IFitnesseProject project = FiteditCore.create(importProject(FITNESSE_PROJECT));
 
-        assertThat(project.findPage(new Path(STATIC_PAGE)), is(notNullValue()));
-        assertThat(project.findPage(new Path(SUITE_PAGE)), is(notNullValue()));
-        assertThat(project.findPage(new Path(TEST_PAGE)), is(notNullValue()));
+        assertPageWithNoMarkers(project, STATIC_PAGE);
+        assertPageWithNoMarkers(project, SUITE_PAGE);
+        assertPageWithNoMarkers(project, TEST_PAGE);
+    }
+
+    private void assertPageWithNoMarkers(IFitnesseProject project, String page) throws Exception {
+        IFitnessePage findPage = project.findPage(new Path(SUITE_PAGE));
+
+        assertThat(findPage, is(notNullValue()));
+        assertThat(fitnesseMarkers(findPage).length, is(0));
+    }
+
+    private IMarker[] fitnesseMarkers(IFitnessePage page) throws CoreException {
+        return page.getFile().findMarkers(FiteditCore.MARKER_TYPE, true, IResource.DEPTH_INFINITE);
     }
 }

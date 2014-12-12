@@ -39,7 +39,7 @@ public class FitnesseModelTest extends AbstractFitnesseTest {
 
         FitnesseModel.load();
 
-        assertPageSize(3);
+        assertPageSize(5);
         assertStaticPageExists(project, STATIC_PAGE);
         assertSuitePageExists(project, SUITE_PAGE);
         assertTestPageExists(project, TEST_PAGE);
@@ -64,6 +64,15 @@ public class FitnesseModelTest extends AbstractFitnesseTest {
 
         assertRoot(ALT_ROOT);
         assertPageSize(0);
+    }
+
+    @Test
+    public void shouldFindPagesWithClosedProject() throws Exception {
+        importProject(GENERAL_PROJECT).close(null);
+        importProject(FITNESSE_PROJECT);
+        FitnesseModel.load();
+
+        assertPageSize(5);
     }
 
 }

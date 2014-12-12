@@ -8,19 +8,19 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
-import org.slf4j.Logger;
 
 import fitnesseclipse.core.FiteditCore;
+import fitnesseclipse.logging.ILogger;
 import fitnesseclipse.logging.LoggerFactory;
 
 public class PageChecker {
 
-    private static final Logger logger = LoggerFactory.getLogger(PageChecker.class);
+    private static final ILogger logger = LoggerFactory.getLogger(PageChecker.class);
 
     private static final String INCLUDE = "!include ";
 
     public static void check(String fitnesseRoot, IProject project, IResource resource) {
-        logger.debug("Checking Resource: {}", resource);
+        logger.debug("Checking Resource: " + resource.getFullPath());
 
         String resourcePath = resource.getFullPath().toString();
         if (!(resourcePath.indexOf(fitnesseRoot) != -1)) {
@@ -51,40 +51,18 @@ public class PageChecker {
                     } else if (page.contains("-c ")) {
                         page = page.substring(3);
                     }
-                    boolean child = false;
-                    boolean parent = false;
-                    if (page.contains(">")) {
-                        page = page.substring(1);
-                        child = true;
-                    } else if (page.contains("<")) {
-                        page = page.substring(1);
-                        parent = true;
-                    }
 
-                    IPath path;
+                    IPath path = null;
                     if (page.startsWith(".")) {
                         path = project.getProjectRelativePath().append(fitnesseRoot).addTrailingSeparator()
                                 .append(page.substring(1).replaceAll("\\.", "/"));
+                    } else if (page.startsWith("<")) {
+                        path = resource.getProjectRelativePath().removeLastSegments(3).addTrailingSeparator()
+                                .append(page.substring(1).replaceAll("\\.", "/"));
+                    } else if (page.startsWith(">")) {
+
                     } else {
-                        IPath projectRelativePath = resource.getProjectRelativePath();
-
-                        int segmentsToRemove = 2;
-                        if (child) {
-                            segmentsToRemove = 1;
-                        } else if (parent) {
-                            String string = page.split("\\.")[0];
-
-                            String[] segments = projectRelativePath.segments();
-                            for (int i = 0; i < segments.length; i++) {
-                                String segment = segments[i];
-                                if (segment.equals(string)) {
-                                    segmentsToRemove = segments.length - i;
-                                    break;
-                                }
-                            }
-                        }
-
-                        path = projectRelativePath.removeLastSegments(segmentsToRemove).addTrailingSeparator()
+                        path = resource.getProjectRelativePath().removeLastSegments(2).addTrailingSeparator()
                                 .append(page.replaceAll("\\.", "/"));
                     }
                     path = path.append("content.txt");

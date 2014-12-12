@@ -51,7 +51,6 @@ public class FitnesseLinkDetector extends AbstractHyperlinkDetector {
             } else if (FitSourcePartitionScanner.FIT_INCLUDE.equals(partition.getType())) {
                 String source = document.get(partitionOffset, partition.getLength()).trim();
                 int len = "!include ".length();
-                String page = source.substring(len);
 
                 int min = partitionOffset + len;
                 int max = partitionOffset + source.length();
@@ -60,13 +59,25 @@ public class FitnesseLinkDetector extends AbstractHyperlinkDetector {
                     IFile editorFile = extractFileFromEditor(getActiveEditor());
                     IProject project = editorFile.getProject();
 
-                    IPath path;
+                    String page = source.substring(9);
+                    if (page.contains("-seamless ")) {
+                        page = page.substring(10);
+                    } else if (page.contains("-c ")) {
+                        page = page.substring(3);
+                    }
+
+                    IPath path = null;
                     if (page.startsWith(".")) {
                         path = project.getProjectRelativePath().append(Preferences.getFitnesseRoot())
                                 .addTrailingSeparator().append(page.substring(1).replaceAll("\\.", "/"));
+                    } else if (page.startsWith("<")) {
+                        path = editorFile.getProjectRelativePath().removeLastSegments(3).addTrailingSeparator()
+                                .append(page.substring(1).replaceAll("\\.", "/"));
+                    } else if (page.startsWith(">")) {
+                        // TODO
                     } else {
                         path = editorFile.getProjectRelativePath().removeLastSegments(2).addTrailingSeparator()
-                                .append(page);
+                                .append(page.replaceAll("\\.", "/"));
                     }
 
                     IFitnesseProject fitnesseProject = FiteditCore.create(editorFile.getProject());

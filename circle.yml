@@ -4,7 +4,7 @@ dependencies:
 
 machine:
   post:
-    - chmod +x update-nightly.sh
+    - chmod +x ~/fitnesse-eclipse/update-nightly.sh
 
 test:
   override:

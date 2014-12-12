@@ -7,6 +7,8 @@ test:
     - mvn clean verify
   post:
     - cp fitnesseclipse.core.tests/target/surefire-reports/*.xml $CI_REPORTS
+    - pwd
+    - cd ..; git clone git@github.com:fitnesse-eclipse/fitnesse-eclipse.github.io.git; cd fitnesse-eclipse.github.io.git
     
 general:
   artifacts:

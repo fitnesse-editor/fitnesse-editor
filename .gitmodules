@@ -1,0 +1,3 @@
+[submodule "fitnesseclipse.website"]
+	path = fitnesseclipse.website
+	url = git@github.com:fitnesse-eclipse/fitnesse-eclipse.github.io.git

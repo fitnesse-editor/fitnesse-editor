@@ -14,7 +14,7 @@ cp -r ~/fitnesse-eclipse/fitnesseclipse.site/target/repository/* nightly/
 
 echo commiting changes
 git add --all
-git commit "Update Nightly"
+git commit -m "Update Nightly"
 
 echo pushing to remote
 git push origin master

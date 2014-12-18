@@ -4,7 +4,7 @@ branch=$(git branch | awk '/^\*/{print $2}')
 
 if [ "$branch" != "master" ]; then 
   echo Skipping update of nightly as on branch $branch
-  wxit
+  exit
 fi 
 
 echo Cloning website

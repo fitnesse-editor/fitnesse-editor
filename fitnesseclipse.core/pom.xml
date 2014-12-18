@@ -13,13 +13,4 @@
 
     <packaging>eclipse-plugin</packaging>
 
-
-    <dependencies>
-        <dependency>
-            <groupId>com.boxysystems</groupId>
-            <artifactId>jgoogleanalytics</artifactId>
-            <version>0.5</version>
-        </dependency>
-    </dependencies>
-
 </project>

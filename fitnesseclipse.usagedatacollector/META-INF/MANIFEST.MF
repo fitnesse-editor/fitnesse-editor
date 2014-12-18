@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: FitNesse Eclipse Usage Data Collector
+Bundle-SymbolicName: fitnesseclipse.usagedatacollector;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Bundle-Vendor: FitNesse Eclipse
+Bundle-ClassPath: .,
+ lib/JGoogleAnalyticsTracker-1.2.0.jar

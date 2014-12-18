@@ -24,6 +24,7 @@
 <!--         <module>fitnesseclipse.ui.tests</module> -->
 
         <module>fitnesseclipse.site</module>
+        <module>fitnesseclipse.usagedatacollector</module>
     </modules>
 
     <properties>

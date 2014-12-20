@@ -9,6 +9,7 @@ import org.osgi.framework.BundleContext;
 
 import fitnesseclipse.core.FiteditCore;
 import fitnesseclipse.ui.preferences.PreferenceConstants;
+import fitnesseclipse.usagedatacollector.UsageDataCollector;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -20,6 +21,8 @@ public class FiteditUi extends AbstractUIPlugin {
 
     // The shared instance
     private static FiteditUi plugin;
+
+    private UsageDataCollector udc;
 
     @Override
     public void start(BundleContext context) throws Exception {
@@ -39,10 +42,15 @@ public class FiteditUi extends AbstractUIPlugin {
                 }
             }
         });
+
+        udc = new UsageDataCollector();
+        udc.track("startup", "plugin_activated");
     }
 
     @Override
     public void stop(BundleContext context) throws Exception {
+        udc.track("shutdwn", "plugin_deactivated");
+
         super.stop(context);
         plugin = null;
     }

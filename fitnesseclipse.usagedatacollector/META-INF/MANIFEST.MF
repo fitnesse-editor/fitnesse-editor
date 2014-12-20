@@ -8,3 +8,5 @@ Bundle-ActivationPolicy: lazy
 Bundle-Vendor: FitNesse Eclipse
 Bundle-ClassPath: .,
  lib/JGoogleAnalyticsTracker-1.2.0.jar
+Export-Package: fitnesseclipse.usagedatacollector
+Require-Bundle: org.slf4j.api;bundle-version="1.7.2"

@@ -13,7 +13,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.expressions,
  org.eclipse.jdt.core;resolution:=optional,
  org.eclipse.jdt.ui;resolution:=optional,
- org.junit;resolution:=optional
+ org.junit;resolution:=optional,
+ fitnesseclipse.usagedatacollector
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-Vendor: FitNesse Eclipse
 Export-Package: fitnesseclipse.ui,
@@ -34,6 +35,5 @@ Bundle-ClassPath: .,
  lib/js-1.7-R3.jar
 Bundle-Version: 1.0.0.qualifier
 Import-Package: fitnesseclipse.core,
- fitnesseclipse.logging,
- org.slf4j;version="1.7.2"
+ fitnesseclipse.logging
 Bundle-ActivationPolicy: lazy

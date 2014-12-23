@@ -39,7 +39,7 @@ public class AbstractFitnesseTest {
     }
 
     @Before
-    public void setUp() throws Exception {
+    public void setup() throws Exception {
         WorkspaceHelper.cleanWorkspace();
     }
 

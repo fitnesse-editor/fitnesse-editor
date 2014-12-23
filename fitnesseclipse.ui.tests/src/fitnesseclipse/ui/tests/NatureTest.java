@@ -1,63 +1,42 @@
 package fitnesseclipse.ui.tests;
 
 import static org.junit.Assert.fail;
+
+import java.util.List;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
+import org.eclipse.swtbot.eclipse.finder.matchers.WidgetMatcherFactory;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotMenu;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import fitnesseclipse.core.tests.AbstractFitnesseTest;
 import fitnesseclipse.core.tests.helpers.JobHelper;
 
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class NatureTest extends AbstractFitnesseTest {
 
-    private SWTWorkbenchBot bot = new SWTWorkbenchBot();
+    private final SWTWorkbenchBot bot = new SWTWorkbenchBot();
 
     @Before
-    public void setup() {
+    @Override
+    public void setup() throws Exception {
+        super.setup();
         try {
-            bot.viewByTitle("Welcome").close();
+            List<SWTBotView> views = bot.views(WidgetMatcherFactory.withTitle("Welcome"));
+            if (!views.isEmpty()) {
+                views.get(0).close();
+            }
         } catch (WidgetNotFoundException e) {
         }
-
-        // open "Open Perspective" dialog
-        SWTBotMenu windowMenu = bot.menu("Window");
-        windowMenu.click();
-        SWTBotMenu perspectiveMenu = windowMenu.menu("Open Perspective");
-        perspectiveMenu.click();
-        SWTBotMenu otherMenu = windowMenu.menu("Other...");
-        otherMenu.click();
-
-        // select "LDAP" perspective
-        SWTBotTable table = bot.table();
-        table.select("Java");
-
-        // press "OK"
-        SWTBotButton okButton = bot.button("OK");
-        okButton.click();
-
-        // wait till Connections view become visible
-        bot.waitUntil(new DefaultCondition() {
-            @Override
-            public boolean test() throws Exception {
-                return NatureTest.this.bot.perspectiveByLabel("Java") != null;
-            }
-
-            @Override
-            public String getFailureMessage() {
-                return "Could not find widget";
-            }
-        });
+        bot.perspectiveByLabel("Java").activate();
     }
 
     @Test

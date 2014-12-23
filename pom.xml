@@ -21,7 +21,7 @@
         <module>fitnesseclipse.feature</module>
 
         <module>fitnesseclipse.core.tests</module>
-<!--         <module>fitnesseclipse.ui.tests</module> -->
+        <module>fitnesseclipse.ui.tests</module>
 
         <module>fitnesseclipse.site</module>
     </modules>
@@ -29,7 +29,7 @@
     <properties>
         <tycho-version>0.22.0</tycho-version>
         <target-platform>luna</target-platform>
-        <platform-version>[3.9,4.0)</platform-version>
+        <platform-version>[3.10,4.0)</platform-version>
     </properties>
 
     <build>

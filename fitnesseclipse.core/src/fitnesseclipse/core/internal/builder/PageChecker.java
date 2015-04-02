@@ -57,8 +57,16 @@ public class PageChecker {
                         path = project.getProjectRelativePath().append(fitnesseRoot).addTrailingSeparator()
                                 .append(page.substring(1).replaceAll("\\.", "/"));
                     } else if (page.startsWith("<")) {
-                        path = resource.getProjectRelativePath().removeLastSegments(3).addTrailingSeparator()
-                                .append(page.substring(1).replaceAll("\\.", "/"));
+                        int segmentsToRemove = 0;
+                        String pagePath = page.substring(1).replaceAll("\\.", "/").concat("/content.txt");
+                        while (segmentsToRemove != resource.getProjectRelativePath().segmentCount()) {
+                            IPath pathToTry = resource.getProjectRelativePath().removeLastSegments(++segmentsToRemove)
+                                    .append(pagePath);
+                            if (project.getFile(pathToTry).exists()) {
+                                path = pathToTry.removeLastSegments(1);
+                                break;
+                            }
+                        }
                     } else if (page.startsWith(">")) {
 
                     } else {

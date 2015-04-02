@@ -71,8 +71,16 @@ public class FitnesseLinkDetector extends AbstractHyperlinkDetector {
                         path = project.getProjectRelativePath().append(Preferences.getFitnesseRoot())
                                 .addTrailingSeparator().append(page.substring(1).replaceAll("\\.", "/"));
                     } else if (page.startsWith("<")) {
-                        path = editorFile.getProjectRelativePath().removeLastSegments(3).addTrailingSeparator()
-                                .append(page.substring(1).replaceAll("\\.", "/"));
+                        int segmentsToRemove = 0;
+                        String pagePath = page.substring(1).replaceAll("\\.", "/").concat("/content.txt");
+                        while (segmentsToRemove != editorFile.getProjectRelativePath().segmentCount()) {
+                            IPath pathToTry = editorFile.getProjectRelativePath()
+                                    .removeLastSegments(++segmentsToRemove).append(pagePath);
+                            if (project.getFile(pathToTry).exists()) {
+                                path = pathToTry.removeLastSegments(1);
+                                break;
+                            }
+                        }
                     } else if (page.startsWith(">")) {
                         // TODO
                     } else {
@@ -103,7 +111,7 @@ public class FitnesseLinkDetector extends AbstractHyperlinkDetector {
     }
 
     private String extractFqdn(String source) {
-        return source.replaceAll("[\\r\\n]+", "").split("\\|\\|")[0].substring(2);
+        return source.replaceAll("[\\r\\n ]+", "").split("\\|\\|")[0].substring(2);
     }
 
     IFile extractFileFromEditor(IEditorPart editor) {

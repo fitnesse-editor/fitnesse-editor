@@ -3,15 +3,9 @@ package fitnesseclipse.core;
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
-import org.eclipse.core.resources.IProjectNature;
 import org.eclipse.core.runtime.CoreException;
 
-public class FitnesseNature implements IProjectNature {
-
-    /**
-     * ID of this project nature
-     */
-    public static final String NATURE_ID = "fitnesseclipse.core.fitnesseNature";
+public class FitnesseNature implements IFitnesseNature {
 
     private IProject project;
 
@@ -20,8 +14,8 @@ public class FitnesseNature implements IProjectNature {
         IProjectDescription desc = project.getDescription();
         ICommand[] commands = desc.getBuildSpec();
 
-        for (int i = 0; i < commands.length; ++i) {
-            if (commands[i].getBuilderName().equals(FiteditCore.BUILDER_ID)) {
+        for (ICommand command : commands) {
+            if (command.getBuilderName().equals(FiteditCore.BUILDER_ID)) {
                 return;
             }
         }

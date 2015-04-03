@@ -11,9 +11,11 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import fitnesseclipse.core.FitnesseNature;
+import fitnesseclipse.core.IFitnesseNature;
 
 public class AddRemoveFitnesseNatureHandler extends AbstractHandler {
 
@@ -27,11 +29,18 @@ public class AddRemoveFitnesseNatureHandler extends AbstractHandler {
                 if (element instanceof IProject) {
                     project = (IProject) element;
                 } else if (element instanceof IAdaptable) {
-                    project = (IProject) ((IAdaptable) element).getAdapter(IProject.class);
+                    project = ((IAdaptable) element).getAdapter(IProject.class);
                 }
                 if (project != null) {
                     try {
                         toggleNature(project);
+                        Display.getDefault().asyncExec(new Runnable() {
+                            @Override
+                            public void run() {
+                                PlatformUI.getWorkbench().getDecoratorManager()
+                                        .update("fitnesseclipse.ui.icondecorator");
+                            }
+                        });
                     } catch (CoreException e) {
                         // TODO log something
                         throw new ExecutionException("Failed to toggle nature", e);
@@ -54,7 +63,7 @@ public class AddRemoveFitnesseNatureHandler extends AbstractHandler {
         String[] natures = description.getNatureIds();
 
         for (int i = 0; i < natures.length; ++i) {
-            if (FitnesseNature.NATURE_ID.equals(natures[i])) {
+            if (IFitnesseNature.NATURE_ID.equals(natures[i])) {
                 // Remove the nature
                 String[] newNatures = new String[natures.length - 1];
                 System.arraycopy(natures, 0, newNatures, 0, i);
@@ -68,7 +77,7 @@ public class AddRemoveFitnesseNatureHandler extends AbstractHandler {
         // Add the nature
         String[] newNatures = new String[natures.length + 1];
         System.arraycopy(natures, 0, newNatures, 0, natures.length);
-        newNatures[natures.length] = FitnesseNature.NATURE_ID;
+        newNatures[natures.length] = IFitnesseNature.NATURE_ID;
         description.setNatureIds(newNatures);
         project.setDescription(description, null);
     }

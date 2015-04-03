@@ -13,19 +13,6 @@
       </builder>
    </extension>
    <extension
-         id="fitnesseclipse.core.fitnesseNature"
-         name="FitNesse Project Nature"
-         point="org.eclipse.core.resources.natures">
-      <runtime>
-         <run
-               class="fitnesseclipse.core.FitnesseNature">
-         </run>
-      </runtime>
-      <builder
-            id="fitnesseclipse.core.fitnesseBuilder">
-      </builder>
-   </extension>
-   <extension
          id="fitnesseclipse.core.marker.problemmarker"
          name="FitNesse Problem Marker"
          point="org.eclipse.core.resources.markers">

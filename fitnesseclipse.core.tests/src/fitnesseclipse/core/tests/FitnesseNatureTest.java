@@ -5,7 +5,7 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.runtime.CoreException;
 import org.junit.Test;
 
-import fitnesseclipse.core.FitnesseNature;
+import fitnesseclipse.core.IFitnesseNature;
 
 public class FitnesseNatureTest extends AbstractFitnesseTest {
 
@@ -68,7 +68,7 @@ public class FitnesseNatureTest extends AbstractFitnesseTest {
         String[] oldNatures = description.getNatureIds();
         String[] newNatures = new String[oldNatures.length + 1];
         System.arraycopy(oldNatures, 0, newNatures, 0, oldNatures.length);
-        newNatures[newNatures.length - 1] = FitnesseNature.NATURE_ID;
+        newNatures[newNatures.length - 1] = IFitnesseNature.NATURE_ID;
         description.setNatureIds(newNatures);
         project.setDescription(description, null);
     }

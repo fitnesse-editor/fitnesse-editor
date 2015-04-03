@@ -12,8 +12,8 @@ import org.eclipse.jdt.core.JavaCore;
 import org.junit.Before;
 
 import fitnesseclipse.core.FiteditCore;
-import fitnesseclipse.core.FitnesseNature;
 import fitnesseclipse.core.IFitnesseModel;
+import fitnesseclipse.core.IFitnesseNature;
 import fitnesseclipse.core.tests.helpers.JobHelper;
 import fitnesseclipse.core.tests.helpers.WorkspaceHelper;
 
@@ -56,15 +56,15 @@ public class AbstractFitnesseTest {
     }
 
     protected void assertNatureExists(IProject project) throws CoreException {
-        assertThat(project.getNature(FitnesseNature.NATURE_ID), is(notNullValue()));
+        assertThat(project.getNature(IFitnesseNature.NATURE_ID), is(notNullValue()));
     }
 
     protected void assertNatureNotExists(IProject project) throws CoreException {
-        assertThat(project.getNature(FitnesseNature.NATURE_ID), is(nullValue()));
+        assertThat(project.getNature(IFitnesseNature.NATURE_ID), is(nullValue()));
     }
 
     protected void assertNatureProject(IProject project) throws CoreException {
-        assertThat(project.getNature(FitnesseNature.NATURE_ID).getProject(), is(equalTo(project)));
+        assertThat(project.getNature(IFitnesseNature.NATURE_ID).getProject(), is(equalTo(project)));
     }
 
     protected void assertPageSize(int expectedPages) throws CoreException {

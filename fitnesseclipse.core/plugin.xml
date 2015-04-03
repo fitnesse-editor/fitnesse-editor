@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+  <extension point="org.eclipse.core.contenttype.contentTypes"> 
+      <content-type id="fitnesseclipse.core.contenttype.fitnesseText"
+           name="Fitnesse Content file"
+           base-type="org.eclipse.core.runtime.text"
+           file-names="content.txt"
+           priority="low"/>
+       
+       <content-type
+           base-type="org.eclipse.core.runtime.text"
+           file-names="content.txt"
+           id="fitnesseclipse.core.contenttype.fitnesseTextOutside"
+           name="Content txt file (for non-Fitnesse projects)"
+           priority="high"/>
+   </extension>
+   <extension
+       id="fitnesseclipse.core.fitnesseNature"
+       name="FitNesse Project Nature"
+       point="org.eclipse.core.resources.natures">
+        <runtime>
+            <run
+                class="fitnesseclipse.core.FitnesseNature">
+            </run>
+        </runtime>
+        <builder
+            id="fitnesseclipse.core.fitnesseBuilder">
+        </builder>
+        <content-type
+            id="fitnesseclipse.core.contenttype.fitnesseText">
+        </content-type>
+   </extension>
    <extension
          id="fitnesseclipse.core.fitnesseBuilder"
          name="FitNesse Project Builder"

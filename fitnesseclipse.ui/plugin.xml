@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-
 	<extension
          point="org.eclipse.ui.contexts">
 		<context 
@@ -11,7 +10,7 @@
                 id="fitnesseclipse.ui.editors.fitnesseEditorScope">
 		</context>
 	</extension>
-
+	
 	<extension
          point="org.eclipse.ui.editors">
 		<editor
@@ -19,65 +18,33 @@
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             id="fitnesseclipse.ui.editors.FitnesseEditor"
             name="FitNesse Editor">
-            <contentTypeBinding contentTypeId="fitnesseclipse.ui.contenttype.fitnesseText"/>
+            <contentTypeBinding contentTypeId="fitnesseclipse.core.contenttype.fitnesseText"/>
 		</editor>
 	</extension>
-	
-	 <extension
-         id="fitnesseclipse.core.fitnesseNature"
-         name="FitNesse Project Nature"
-         point="org.eclipse.core.resources.natures">
-      <runtime>
-         <run
-            class="fitnesseclipse.core.FitnesseNature">
-         </run>
-      </runtime>
-      <builder
-            id="fitnesseclipse.core.fitnesseBuilder">
-      </builder>
-      <content-type
-        id="fitnesseclipse.ui.contenttype.fitnesseText">
-      </content-type>
-   </extension>
-   
-   <extension point="org.eclipse.core.contenttype.contentTypes"> 
-      <content-type id="fitnesseclipse.ui.contenttype.fitnesseText"
-           name="Fitnesse Content file"
-           base-type="org.eclipse.core.runtime.text"
-           file-names="content.txt"
-           priority="low"/>
-       
-       <content-type
-           base-type="org.eclipse.core.runtime.text"
-           file-names="content.txt"
-           id="fitnesseclipse.ui.contenttype.fitnesseTextOutside"
-           name="Content txt file (for non-Fitnesse projects)"
-           priority="high"/>
-   </extension> 
-   
-   <extension
-    point="org.eclipse.ui.decorators">
-  <decorator
-      adaptable="true"
-      icon="icons/fitedit_16.png"
-      id="fitnesseclipse.ui.icondecorator"
-      label="Fitnesse Editor Resource Decorator"
-      lightweight="true"
-      location="TOP_LEFT"
-      state="true">
-    <enablement>
-      <and>
-         <objectClass
-            name="org.eclipse.core.resources.IFile">
-         </objectClass>
-         <objectState
-           name="contentTypeId"
-           value="fitnesseclipse.ui.contenttype.fitnesseText">
-         </objectState>
-       </and>
-     </enablement>
-   </decorator>
-</extension>
+    
+    <extension
+        point="org.eclipse.ui.decorators">
+        <decorator
+            adaptable="true"
+            icon="icons/fitedit_16.png"
+            id="fitnesseclipse.ui.icondecorator"
+            label="Fitnesse Editor Resource Decorator"
+            lightweight="true"
+            location="TOP_LEFT"
+            state="true">
+                <enablement>
+                    <and>
+                        <objectClass
+                            name="org.eclipse.core.resources.IFile">
+                        </objectClass>
+                        <objectState
+                            name="contentTypeId"
+                            value="fitnesseclipse.core.contenttype.fitnesseText">
+                        </objectState>
+                    </and>
+                </enablement>
+        </decorator>
+    </extension>
 	
 	<extension
          point="org.eclipse.ui.preferencePages">

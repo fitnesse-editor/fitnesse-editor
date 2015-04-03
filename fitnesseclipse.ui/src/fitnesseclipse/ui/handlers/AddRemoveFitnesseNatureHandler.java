@@ -29,7 +29,7 @@ public class AddRemoveFitnesseNatureHandler extends AbstractHandler {
                 if (element instanceof IProject) {
                     project = (IProject) element;
                 } else if (element instanceof IAdaptable) {
-                    project = ((IAdaptable) element).getAdapter(IProject.class);
+                    project = (IProject) ((IAdaptable) element).getAdapter(IProject.class);
                 }
                 if (project != null) {
                     try {
@@ -38,7 +38,7 @@ public class AddRemoveFitnesseNatureHandler extends AbstractHandler {
                             @Override
                             public void run() {
                                 PlatformUI.getWorkbench().getDecoratorManager()
-                                        .update("fitnesseclipse.ui.icondecorator");
+                                .update("fitnesseclipse.ui.icondecorator");
                             }
                         });
                     } catch (CoreException e) {

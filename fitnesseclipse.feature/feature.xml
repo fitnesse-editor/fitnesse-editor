@@ -2,7 +2,7 @@
 <feature
       id="fitnesseclipse.feature"
       label="FitNesse Eclipse"
-      version="1.0.0.qualifier"
+      version="1.1.0.qualifier"
       plugin="fitnesseclipse">
 
    <description>

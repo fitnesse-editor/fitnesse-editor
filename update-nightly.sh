@@ -14,7 +14,9 @@ git config user.email "fitnesseclipse@a1dutch.co.uk"
 git config user.name "fitnesseclipse"
 
 echo Clearing nightly folder
-rm -rf nightly/*
+rm -rf nightly
+
+mkdir nightly
 
 echo Updating nightly folder
 cp -r ~/fitnesse-eclipse/fitnesseclipse.site/target/repository/* nightly/

@@ -64,66 +64,35 @@
 
 	<extension
          point="org.eclipse.ui.commands">
-		<category
-            id="fitnesseclipse.ui.nature.category"
-            name="Fitnesse Project Nature commands">
-		</category>
 		<command
-            categoryId="fitnesseclipse.ui.nature.category"
             defaultHandler="fitnesseclipse.ui.handlers.AddRemoveFitnesseNatureHandler"
-            id="fitnesseclipse.core.addRemoveFitnesseNature"
+            id="fitnesseclipse.commands.addRemoveNatureCommand"
             name="Add/Remove Fitnesse Project Nature">
 		</command>
-		<category
-            id="fitnesseclipse.commands.category"
-            name="Action Category">
-		</category>
 		<command
-            categoryId="fitnesseclipse.commands.category"
-            id="fitnesseclipse.commands.refreshIndexCommand"
-            name="Rebuild FitNesse Indexes">
-		</command>
-		<command
-            categoryId="fitnesseclipse.commands.category"
+            categoryId="org.eclipse.ui.category.navigate"
+            defaultHandler="fitnesseclipse.ui.handlers.OpenFitnesseResouceHandler"
             id="fitnesseclipse.commands.openFitnesseCommand"
             name="Open FitNesse">
 		</command>
 		<command
-            categoryId="fitnesseclipse.commands.category"
-            id="fitnesseclipse.command.format"
-            name="Format">
-		</command>
-		<command
-            categoryId="fitnesseclipse.commands.category"
+            categoryId="org.eclipse.ui.category.navigate"
+            defaultHandler="fitnesseclipse.ui.handlers.OpenBrowserHandler"
             id="fitnesseclipse.command.openBrowser"
             name="Open In Browser">
 		</command>
 		<command
-            categoryId="fitnesseclipse.commands.category"
-            description="Toggle Comment"
+            categoryId="org.eclipse.ui.category.edit"
+            defaultHandler="fitnesseclipse.ui.handlers.FormatHandler"
+            id="fitnesseclipse.command.format"
+            name="Format">
+		</command>
+		<command
+            categoryId="org.eclipse.ui.category.edit"
+            defaultHandler="fitnesseclipse.ui.handlers.CommentHandler"
             id="fitnesseclipse.command.comment"
-            name="Toggle Comment">
+            name="Comment">
 		</command>            
-	</extension>
-
-	<extension
-         point="org.eclipse.ui.handlers">
-		<handler
-            class="fitnesseclipse.ui.handlers.OpenFitnesseResouceHandler"
-            commandId="fitnesseclipse.commands.openFitnesseCommand">
-		</handler>
-		<handler
-            class="fitnesseclipse.ui.handlers.OpenBrowserHandler"
-            commandId="fitnesseclipse.command.openBrowser">
-		</handler>
-		<handler
-            class="fitnesseclipse.ui.handlers.FormatHandler"
-            commandId="fitnesseclipse.command.format">
-		</handler>
-		<handler
-            class="fitnesseclipse.ui.handlers.CommentHandler"
-            commandId="fitnesseclipse.command.comment">
-		</handler>
 	</extension>
 
 	<extension
@@ -153,7 +122,7 @@
          	locationURI="popup:org.eclipse.ui.popup.any?after=additions">
 			<menu label="Fitnesse">
     			<command 
-    	               commandId="fitnesseclipse.core.addRemoveFitnesseNature"
+    	               commandId="fitnesseclipse.commands.addRemoveNatureCommand"
     	               label="Disable Fitnesse Nature"
     	               style="push">
     				<visibleWhen
@@ -181,7 +150,7 @@
 		<menuContribution
             locationURI="popup:org.eclipse.ui.projectConfigure?after=additions">
 			<command
-               commandId="fitnesseclipse.core.addRemoveFitnesseNature"
+               commandId="fitnesseclipse.commands.addRemoveNatureCommand"
                label="Convert to Fitnesse Project"
                style="push">
 				<visibleWhen

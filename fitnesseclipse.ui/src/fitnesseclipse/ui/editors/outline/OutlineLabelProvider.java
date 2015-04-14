@@ -7,7 +7,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 
-import fitnesseclipse.ui.FiteditUi;
+import fitnesseclipse.ui.FitnesseEclipseUi;
 import fitnesseclipse.ui.editors.outline.SegmentTree.NodeType;
 
 public class OutlineLabelProvider extends LabelProvider {
@@ -24,10 +24,10 @@ public class OutlineLabelProvider extends LabelProvider {
 
         if (imageMap == null) {
             imageMap = new HashMap<SegmentTree.NodeType, ImageDescriptor>();
-            imageMap.put(NodeType.FOLDING, FiteditUi.getImageDescriptor(ICONS_DIR + "/icon_C.gif"));
-            imageMap.put(NodeType.TABLE, FiteditUi.getImageDescriptor(ICONS_DIR + "/icon_small_blue.gif"));
-            imageMap.put(NodeType.HEADLINE, FiteditUi.getImageDescriptor(ICONS_DIR + "/icon_small_orange.gif"));
-            imageMap.put(NodeType.DEFAULT, FiteditUi.getImageDescriptor(ICONS_DIR + "/icon_small_small_blue.gif"));
+            imageMap.put(NodeType.FOLDING, FitnesseEclipseUi.getImageDescriptor(ICONS_DIR + "/icon_C.gif"));
+            imageMap.put(NodeType.TABLE, FitnesseEclipseUi.getImageDescriptor(ICONS_DIR + "/icon_small_blue.gif"));
+            imageMap.put(NodeType.HEADLINE, FitnesseEclipseUi.getImageDescriptor(ICONS_DIR + "/icon_small_orange.gif"));
+            imageMap.put(NodeType.DEFAULT, FitnesseEclipseUi.getImageDescriptor(ICONS_DIR + "/icon_small_small_blue.gif"));
         }
 
         SegmentTree tree = (SegmentTree) element;

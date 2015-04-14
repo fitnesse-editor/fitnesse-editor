@@ -9,7 +9,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 
-import fitnesseclipse.core.FiteditCore;
+import fitnesseclipse.core.FitnesseEclipseCore;
 import fitnesseclipse.logging.ILogger;
 import fitnesseclipse.logging.LoggerFactory;
 
@@ -77,7 +77,7 @@ public class PageChecker {
 
                     IFile file = project.getFile(path);
                     if (!file.exists()) {
-                        IMarker marker = resource.createMarker(FiteditCore.MARKER_TYPE);
+                        IMarker marker = resource.createMarker(FitnesseEclipseCore.MARKER_TYPE);
                         marker.setAttribute(IMarker.MESSAGE, "page (" + file.getProjectRelativePath().toString()
                                 + ") does not exist");
                         marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);

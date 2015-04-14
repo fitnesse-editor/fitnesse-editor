@@ -19,7 +19,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 
-import fitnesseclipse.core.FiteditCore;
+import fitnesseclipse.core.FitnesseEclipseCore;
 import fitnesseclipse.core.IFitnessePage;
 import fitnesseclipse.core.IFitnesseProject;
 import fitnesseclipse.ui.editors.hyperlinks.ClassHyperlink;
@@ -88,7 +88,7 @@ public class FitnesseLinkDetector extends AbstractHyperlinkDetector {
                                 .append(page.replaceAll("\\.", "/"));
                     }
 
-                    IFitnesseProject fitnesseProject = FiteditCore.create(editorFile.getProject());
+                    IFitnesseProject fitnesseProject = FitnesseEclipseCore.create(editorFile.getProject());
                     IFitnessePage findPage = fitnesseProject.findPage(path);
 
                     if (findPage != null) {

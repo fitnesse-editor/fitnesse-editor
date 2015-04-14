@@ -115,7 +115,32 @@
             sequence="Ctrl+Shift+F">
 		</key>
 	</extension>
-
+	
+    <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="fitedit.contribution1"
+            objectClass="org.eclipse.core.resources.IResource">
+         <menu
+               id="fitnesseclipse.popup"
+               label="FitNesse"
+               path="additions">
+         </menu>
+         <action
+               class="fitnesseclipse.ui.menu.popup.actions.OpenBrowserAction"
+               id="fitnesseclipse.ui.menu.popup.openbrowser"
+               label="Open In Browser"
+               menubarPath="fitnesseclipse.popup/1">
+         </action>
+         <action
+               class="fitnesseclipse.ui.menu.popup.actions.FormatAction"
+               id="fitnesseclipse.ui.menu.popup.format"
+               label="Format"
+               menubarPath="fitnesseclipse.popup/1">
+         </action>
+      </objectContribution>
+    </extension>
+    
 	<extension
          point="org.eclipse.ui.menus">
 		<menuContribution

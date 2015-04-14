@@ -7,7 +7,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import org.eclipse.core.resources.IProject;
 import org.junit.Test;
 
-import fitnesseclipse.core.FiteditCore;
+import fitnesseclipse.core.FitnesseEclipseCore;
 import fitnesseclipse.core.IFitnesseModel;
 import fitnesseclipse.core.internal.model.FitnesseModel;
 
@@ -15,7 +15,7 @@ public class FitnesseModelTest extends AbstractFitnesseTest {
 
     @Test
     public void shouldGetModel() throws Exception {
-        assertThat(FiteditCore.getFiteditCore().getModel(), is(notNullValue()));
+        assertThat(FitnesseEclipseCore.getFiteditCore().getModel(), is(notNullValue()));
         assertThat(FitnesseModel.getFitnesseModel(), is(notNullValue()));
     }
 

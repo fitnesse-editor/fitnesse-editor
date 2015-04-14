@@ -5,7 +5,7 @@ import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
-import fitnesseclipse.ui.FiteditUi;
+import fitnesseclipse.ui.FitnesseEclipseUi;
 
 /**
  * This class represents a preference page that is contributed to the Preferences dialog. By subclassing
@@ -20,7 +20,7 @@ public class FitPreferencePage extends FieldEditorPreferencePage implements IWor
 
     public FitPreferencePage() {
         super(GRID);
-        setPreferenceStore(FiteditUi.getDefault().getPreferenceStore());
+        setPreferenceStore(FitnesseEclipseUi.getDefault().getPreferenceStore());
         setDescription("General settings for FitNesse");
     }
 

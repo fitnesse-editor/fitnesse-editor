@@ -6,7 +6,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.ui.IMarkerResolution;
 
-import fitnesseclipse.core.FiteditCore;
+import fitnesseclipse.core.FitnesseEclipseCore;
 import fitnesseclipse.core.IFitnesseProject;
 
 public class CreateTestPageQuickfix implements IMarkerResolution {
@@ -27,7 +27,7 @@ public class CreateTestPageQuickfix implements IMarkerResolution {
         try {
             String page = (String) marker.getAttribute("page");
             IProject project = marker.getResource().getProject();
-            IFitnesseProject fitnesseProject = FiteditCore.create(project);
+            IFitnesseProject fitnesseProject = FitnesseEclipseCore.create(project);
             fitnesseProject.createTestPage(project.getFile(page).getProjectRelativePath());
         } catch (CoreException e) {
             ErrorDialog.openError(null, "", e.getMessage(), null);

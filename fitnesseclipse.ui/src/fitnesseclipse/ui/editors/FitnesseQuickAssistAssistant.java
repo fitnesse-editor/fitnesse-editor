@@ -14,7 +14,7 @@ import org.eclipse.jface.text.source.Annotation;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.ui.texteditor.MarkerAnnotation;
 
-import fitnesseclipse.core.FiteditCore;
+import fitnesseclipse.core.FitnesseEclipseCore;
 import fitnesseclipse.ui.quickfix.CreateTestPageQuickfix;
 
 public class FitnesseQuickAssistAssistant extends QuickAssistAssistant {
@@ -30,7 +30,7 @@ public class FitnesseQuickAssistAssistant extends QuickAssistAssistant {
             try {
                 if (annotation instanceof MarkerAnnotation) {
                     MarkerAnnotation markerAnnotation = (MarkerAnnotation) annotation;
-                    if (FiteditCore.MARKER_TYPE.equals(markerAnnotation.getMarker().getType())) {
+                    if (FitnesseEclipseCore.MARKER_TYPE.equals(markerAnnotation.getMarker().getType())) {
                         ((MarkerAnnotation) annotation).setQuickFixable(true);
                         ((MarkerAnnotation) annotation).update();
                         return true;

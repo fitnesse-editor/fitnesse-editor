@@ -12,7 +12,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
 import fitnesseclipse.ui.Constants;
-import fitnesseclipse.ui.FiteditUi;
+import fitnesseclipse.ui.FitnesseEclipseUi;
 import fitnesseclipse.ui.preferences.PreferenceConstants;
 
 public class FitUtil {
@@ -85,7 +85,7 @@ public class FitUtil {
     }
 
     public static void openFitnesseInBrowser(IResource resource) {
-        String prefix = FiteditUi.getDefault().getPreferenceStore().getString(PreferenceConstants.FITNESSE_URL);
+        String prefix = FitnesseEclipseUi.getDefault().getPreferenceStore().getString(PreferenceConstants.FITNESSE_URL);
         String url = prefix + FitUtil.getFitnesseUrl(resource.getFullPath().toString());
         openDesktopBrowser(url);
     }

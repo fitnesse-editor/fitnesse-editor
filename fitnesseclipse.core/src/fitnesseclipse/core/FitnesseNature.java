@@ -15,7 +15,7 @@ public class FitnesseNature implements IFitnesseNature {
         ICommand[] commands = desc.getBuildSpec();
 
         for (ICommand command : commands) {
-            if (command.getBuilderName().equals(FiteditCore.BUILDER_ID)) {
+            if (command.getBuilderName().equals(FitnesseEclipseCore.BUILDER_ID)) {
                 return;
             }
         }
@@ -23,7 +23,7 @@ public class FitnesseNature implements IFitnesseNature {
         ICommand[] newCommands = new ICommand[commands.length + 1];
         System.arraycopy(commands, 0, newCommands, 0, commands.length);
         ICommand command = desc.newCommand();
-        command.setBuilderName(FiteditCore.BUILDER_ID);
+        command.setBuilderName(FitnesseEclipseCore.BUILDER_ID);
         newCommands[newCommands.length - 1] = command;
         desc.setBuildSpec(newCommands);
         project.setDescription(desc, null);
@@ -34,7 +34,7 @@ public class FitnesseNature implements IFitnesseNature {
         IProjectDescription description = getProject().getDescription();
         ICommand[] commands = description.getBuildSpec();
         for (int i = 0; i < commands.length; ++i) {
-            if (commands[i].getBuilderName().equals(FiteditCore.BUILDER_ID)) {
+            if (commands[i].getBuilderName().equals(FitnesseEclipseCore.BUILDER_ID)) {
                 ICommand[] newCommands = new ICommand[commands.length - 1];
                 System.arraycopy(commands, 0, newCommands, 0, i);
                 System.arraycopy(commands, i + 1, newCommands, i, commands.length - i - 1);

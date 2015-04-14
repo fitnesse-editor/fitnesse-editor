@@ -16,7 +16,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.IProgressService;
 
-import fitnesseclipse.core.FiteditCore;
+import fitnesseclipse.core.FitnesseEclipseCore;
 import fitnesseclipse.core.IFitnessePage;
 import fitnesseclipse.core.IFitnesseProject;
 import fitnesseclipse.core.IFitnesseStaticPage;
@@ -34,12 +34,12 @@ public class FitnesseProject implements IFitnesseProject {
 
     @Override
     public IFitnesseTestPage createTestPage(IPath path) throws CoreException {
-        String root = FiteditCore.getFiteditCore().getModel().getFitnesseRoot();
+        String root = FitnesseEclipseCore.getFiteditCore().getModel().getFitnesseRoot();
         IFolder target = project.getFolder(root + "/TemplateLibrary/TestPage");
         IPath destination = project.getFile(path.removeLastSegments(1)).getFullPath();
         target.copy(destination, false, null);
         buildAndWaitForEnd(project);
-        return FiteditCore.create(project).findTestPage(path);
+        return FitnesseEclipseCore.create(project).findTestPage(path);
     }
 
     public static boolean buildAndWaitForEnd(final IProject project) {

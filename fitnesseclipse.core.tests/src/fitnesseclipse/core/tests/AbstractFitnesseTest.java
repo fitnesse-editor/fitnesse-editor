@@ -11,7 +11,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaCore;
 import org.junit.Before;
 
-import fitnesseclipse.core.FiteditCore;
+import fitnesseclipse.core.FitnesseEclipseCore;
 import fitnesseclipse.core.IFitnesseModel;
 import fitnesseclipse.core.IFitnesseNature;
 import fitnesseclipse.core.tests.helpers.JobHelper;
@@ -48,7 +48,7 @@ public class AbstractFitnesseTest {
     }
 
     protected void assertFitnessBuilderExists(IProject project) throws CoreException {
-        assertThat(project.getDescription().getBuildSpec()[1].getBuilderName(), is(equalTo(FiteditCore.BUILDER_ID)));
+        assertThat(project.getDescription().getBuildSpec()[1].getBuilderName(), is(equalTo(FitnesseEclipseCore.BUILDER_ID)));
     }
 
     protected void assertJavaBuilderExists(IProject project) throws CoreException {
@@ -106,6 +106,6 @@ public class AbstractFitnesseTest {
     }
 
     private IFitnesseModel getModel() throws CoreException {
-        return FiteditCore.getFiteditCore().getModel();
+        return FitnesseEclipseCore.getFiteditCore().getModel();
     }
 }

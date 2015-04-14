@@ -8,14 +8,14 @@ import org.osgi.framework.BundleContext;
 import fitnesseclipse.core.internal.FitnesseProject;
 import fitnesseclipse.core.internal.model.FitnesseModel;
 
-public class FiteditCore extends Plugin {
+public class FitnesseEclipseCore extends Plugin {
 
     public static final String PLUGIN_ID = "fitnesseclipse.core";
     public static final String BUILDER_ID = "fitnesseclipse.core.fitnesseBuilder";
     public static final String MARKER_TYPE = "fitnesseclipse.core.marker.problemmarker";
-    private static FiteditCore core;
+    private static FitnesseEclipseCore core;
 
-    public static FiteditCore getFiteditCore() {
+    public static FitnesseEclipseCore getFiteditCore() {
         return core;
     }
 

@@ -9,7 +9,7 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 
-import fitnesseclipse.core.FiteditCore;
+import fitnesseclipse.core.FitnesseEclipseCore;
 
 public class FitnesseBuilder extends IncrementalProjectBuilder {
 
@@ -33,20 +33,20 @@ public class FitnesseBuilder extends IncrementalProjectBuilder {
 
     @Override
     protected void clean(IProgressMonitor monitor) throws CoreException {
-        getProject().deleteMarkers(FiteditCore.MARKER_TYPE, true, IResource.DEPTH_INFINITE);
+        getProject().deleteMarkers(FitnesseEclipseCore.MARKER_TYPE, true, IResource.DEPTH_INFINITE);
     }
 
     protected void fullBuild(final IProgressMonitor monitor) throws CoreException {
         try {
             getProject()
-            .accept(new DefaultResourceVisitor(FiteditCore.getFiteditCore().getModel().getFitnesseRoot(),
+            .accept(new DefaultResourceVisitor(FitnesseEclipseCore.getFiteditCore().getModel().getFitnesseRoot(),
                     getProject()));
         } catch (CoreException e) {
         }
     }
 
     protected void incrementalBuild(IResourceDelta delta, IProgressMonitor monitor) throws CoreException {
-        delta.accept(new DefaultDeltaResourceVisitor(FiteditCore.getFiteditCore().getModel().getFitnesseRoot(),
+        delta.accept(new DefaultDeltaResourceVisitor(FitnesseEclipseCore.getFiteditCore().getModel().getFitnesseRoot(),
                 getProject()));
     }
 }

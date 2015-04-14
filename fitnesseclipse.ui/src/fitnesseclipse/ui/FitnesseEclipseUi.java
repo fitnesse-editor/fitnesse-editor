@@ -7,19 +7,19 @@ import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-import fitnesseclipse.core.FiteditCore;
+import fitnesseclipse.core.FitnesseEclipseCore;
 import fitnesseclipse.ui.preferences.PreferenceConstants;
 
 /**
  * The activator class controls the plug-in life cycle
  */
-public class FiteditUi extends AbstractUIPlugin {
+public class FitnesseEclipseUi extends AbstractUIPlugin {
 
     // The plug-in ID
     public static final String PLUGIN_ID = "fitnesseclipse.ui"; //$NON-NLS-1$
 
     // The shared instance
-    private static FiteditUi plugin;
+    private static FitnesseEclipseUi plugin;
 
     @Override
     public void start(BundleContext context) throws Exception {
@@ -31,7 +31,7 @@ public class FiteditUi extends AbstractUIPlugin {
             public void propertyChange(PropertyChangeEvent event) {
                 if (PreferenceConstants.FITNESSE_ROOT_DIR.equals(event.getProperty())) {
                     try {
-                        FiteditCore.getFiteditCore().getModel().setFitnesseRoot((String) event.getNewValue());
+                        FitnesseEclipseCore.getFiteditCore().getModel().setFitnesseRoot((String) event.getNewValue());
                     } catch (CoreException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
@@ -52,7 +52,7 @@ public class FiteditUi extends AbstractUIPlugin {
      *
      * @return the shared instance
      */
-    public static FiteditUi getDefault() {
+    public static FitnesseEclipseUi getDefault() {
         return plugin;
     }
 

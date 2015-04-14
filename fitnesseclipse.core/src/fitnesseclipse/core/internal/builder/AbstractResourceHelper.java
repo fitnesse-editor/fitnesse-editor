@@ -14,7 +14,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import fitnesseclipse.core.FiteditCore;
+import fitnesseclipse.core.FitnesseEclipseCore;
 import fitnesseclipse.core.IFitnesseModel;
 import fitnesseclipse.core.internal.model.FitnesseModel;
 
@@ -50,7 +50,7 @@ public class AbstractResourceHelper {
 
     protected void deleteMarkers(IResource resource) throws CoreException {
         if (resource.exists()) {
-            resource.deleteMarkers(FiteditCore.MARKER_TYPE, false, IResource.DEPTH_ZERO);
+            resource.deleteMarkers(FitnesseEclipseCore.MARKER_TYPE, false, IResource.DEPTH_ZERO);
         }
     }
 

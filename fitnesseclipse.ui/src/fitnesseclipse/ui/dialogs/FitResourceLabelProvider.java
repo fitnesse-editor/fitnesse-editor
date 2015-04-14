@@ -9,7 +9,7 @@ import fitnesseclipse.core.IFitnessePage;
 import fitnesseclipse.core.IFitnesseStaticPage;
 import fitnesseclipse.core.IFitnesseSuitePage;
 import fitnesseclipse.core.IFitnesseTestPage;
-import fitnesseclipse.ui.FiteditUi;
+import fitnesseclipse.ui.FitnesseEclipseUi;
 
 public class FitResourceLabelProvider extends LabelProvider implements IStyledLabelProvider {
 
@@ -24,13 +24,13 @@ public class FitResourceLabelProvider extends LabelProvider implements IStyledLa
     @Override
     public Image getImage(Object element) {
         if (element instanceof IFitnesseTestPage) {
-            return FiteditUi.getImageDescriptor("icons/fitedit_test_16.png").createImage();
+            return FitnesseEclipseUi.getImageDescriptor("icons/fitedit_test_16.png").createImage();
         }
         if (element instanceof IFitnesseStaticPage) {
-            return FiteditUi.getImageDescriptor("icons/fitedit_static_16.png").createImage();
+            return FitnesseEclipseUi.getImageDescriptor("icons/fitedit_static_16.png").createImage();
         }
         if (element instanceof IFitnesseSuitePage) {
-            return FiteditUi.getImageDescriptor("icons/fitedit_suite_16.png").createImage();
+            return FitnesseEclipseUi.getImageDescriptor("icons/fitedit_suite_16.png").createImage();
         }
         return null;
     }

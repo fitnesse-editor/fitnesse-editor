@@ -4,7 +4,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.ErrorDialog;
 
-import fitnesseclipse.ui.FiteditUi;
+import fitnesseclipse.ui.FitnesseEclipseUi;
 
 /**
  * Utility class to open error & message dialogs.
@@ -19,6 +19,6 @@ public final class DialogUtils {
 
     public static void openErrorDialog(String title, String message, String statusMessage, Throwable e) {
         ErrorDialog.openError(null, title, message,
-                new Status(IStatus.ERROR, FiteditUi.PLUGIN_ID, statusMessage, e));
+                new Status(IStatus.ERROR, FitnesseEclipseUi.PLUGIN_ID, statusMessage, e));
     }
 }

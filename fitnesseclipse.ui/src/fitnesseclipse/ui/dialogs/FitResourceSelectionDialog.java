@@ -13,15 +13,15 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.FilteredItemsSelectionDialog;
 
-import fitnesseclipse.core.FiteditCore;
+import fitnesseclipse.core.FitnesseEclipseCore;
 import fitnesseclipse.core.IFitnessePage;
-import fitnesseclipse.ui.FiteditUi;
+import fitnesseclipse.ui.FitnesseEclipseUi;
 
 public class FitResourceSelectionDialog extends FilteredItemsSelectionDialog {
 
     public FitResourceSelectionDialog(Shell shell, boolean b) {
         super(shell, b);
-        setImage(FiteditUi.getImageDescriptor("icons/fitedit_16.png").createImage());
+        setImage(FitnesseEclipseUi.getImageDescriptor("icons/fitedit_16.png").createImage());
     }
 
     @Override
@@ -31,9 +31,9 @@ public class FitResourceSelectionDialog extends FilteredItemsSelectionDialog {
 
     @Override
     protected IDialogSettings getDialogSettings() {
-        IDialogSettings settings = FiteditUi.getDefault().getDialogSettings().getSection("section");
+        IDialogSettings settings = FitnesseEclipseUi.getDefault().getDialogSettings().getSection("section");
         if (settings == null) {
-            settings = FiteditUi.getDefault().getDialogSettings().addNewSection("section");
+            settings = FitnesseEclipseUi.getDefault().getDialogSettings().addNewSection("section");
         }
         return settings;
     }
@@ -75,7 +75,7 @@ public class FitResourceSelectionDialog extends FilteredItemsSelectionDialog {
             IProgressMonitor progressMonitor) throws CoreException {
         progressMonitor.beginTask("Open..", 10);
 
-        List<IFitnessePage> pages = FiteditCore.getFiteditCore().getModel().getPages();
+        List<IFitnessePage> pages = FitnesseEclipseCore.getFiteditCore().getModel().getPages();
 
         int total = 0;
         int unit = pages.size() / 10;

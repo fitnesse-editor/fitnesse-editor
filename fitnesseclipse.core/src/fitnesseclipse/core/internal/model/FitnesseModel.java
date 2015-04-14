@@ -23,7 +23,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
-import fitnesseclipse.core.FiteditCore;
+import fitnesseclipse.core.FitnesseEclipseCore;
 import fitnesseclipse.core.FitnesseNature;
 import fitnesseclipse.core.IFitnesseModel;
 import fitnesseclipse.core.IFitnessePage;
@@ -192,14 +192,14 @@ public class FitnesseModel implements IFitnesseModel, Serializable {
     }
 
     private static File fitnessModelFile() {
-        return new File(FiteditCore.getFiteditCore().getStateLocation().toFile() + "/" + "fitnesse.model");
+        return new File(FitnesseEclipseCore.getFiteditCore().getStateLocation().toFile() + "/" + "fitnesse.model");
     }
 
     public static void store() throws CoreException {
         try {
             new ObjectOutputStream(new FileOutputStream(fitnessModelFile())).writeObject(model);
         } catch (IOException e) {
-            throw new CoreException(new Status(IStatus.ERROR, FiteditCore.PLUGIN_ID, -1, "Failed to store model", e));
+            throw new CoreException(new Status(IStatus.ERROR, FitnesseEclipseCore.PLUGIN_ID, -1, "Failed to store model", e));
         }
     }
 

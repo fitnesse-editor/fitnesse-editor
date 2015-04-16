@@ -1,4 +1,4 @@
-package fitnesseclipse.ui.menu.popup.actions;
+package fitnesseclipse.ui.handlers.format;
 
 import java.util.List;
 

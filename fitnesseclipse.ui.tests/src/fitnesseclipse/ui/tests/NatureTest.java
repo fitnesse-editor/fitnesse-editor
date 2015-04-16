@@ -76,7 +76,7 @@ public class NatureTest extends AbstractFitnesseTest {
 
         SWTBotTreeItem packageExplorerTree = getPackageExplorerTree(FITNESSE_PROJECT).select();
         SWTBotMenu contextMenu = packageExplorerTree.contextMenu("Fitnesse");
-        contextMenu.menu("Disable Fitnesse Nature").click();
+        contextMenu.menu("Disable Fitnesse Integration").click();
 
         try {
             packageExplorerTree.contextMenu("Fitnesse");

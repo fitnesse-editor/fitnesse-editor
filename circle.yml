@@ -2,10 +2,6 @@ dependencies:
   override:
     - echo 'Skipping Dependency Check'
 
-machine:
-  post:
-    - chmod +x ~/fitnesse-eclipse/update-nightly.sh
-
 test:
   override:
     - mvn clean verify

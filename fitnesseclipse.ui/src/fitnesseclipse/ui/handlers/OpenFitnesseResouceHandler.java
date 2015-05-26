@@ -42,7 +42,12 @@ public class OpenFitnesseResouceHandler extends AbstractHandler {
         }
 
         try {
-            IDE.openEditor(window.getActivePage(), page.getFile(), true);
+            if (page.getFile().exists()) {
+                IDE.openEditor(window.getActivePage(), page.getFile(), true);
+            } else {
+                throw new ExecutionException("page (" + page.getPath() + ") does not exist.");
+            }
+
         } catch (PartInitException e) {
             e.printStackTrace();
         }

@@ -46,9 +46,9 @@ public class PageChecker {
                 }
                 if (!withinDefine && line.startsWith(INCLUDE)) {
                     String page = line.substring(INCLUDE.length());
-                    if (page.contains("-seamless ")) {
+                    if (page.startsWith("-seamless ")) {
                         page = page.substring(10);
-                    } else if (page.contains("-c ")) {
+                    } else if (page.startsWith("-c ")) {
                         page = page.substring(3);
                     }
 
@@ -68,7 +68,8 @@ public class PageChecker {
                             }
                         }
                     } else if (page.startsWith(">")) {
-
+                        // not implemented
+                        return;
                     } else {
                         path = resource.getProjectRelativePath().removeLastSegments(2).addTrailingSeparator()
                                 .append(page.replaceAll("\\.", "/"));

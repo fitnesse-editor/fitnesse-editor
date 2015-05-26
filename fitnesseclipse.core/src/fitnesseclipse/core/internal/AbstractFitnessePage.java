@@ -16,12 +16,12 @@ public abstract class AbstractFitnessePage implements IFitnessePage {
 
     @Override
     public String getPath() {
-        return path;
+        return path + "/content.txt";
     }
 
     @Override
     public IFile getFile() {
-        return project.getFile(path);
+        return project.getFile(getPath());
     }
 
     @Override

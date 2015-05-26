@@ -116,7 +116,7 @@ public class FitnesseModel implements IFitnesseModel, Serializable {
     @Override
     public IFitnesseSuitePage getSuitePage(IProject project, IPath path) {
         if (getProjectSuitePages(project).contains(fileRelativeToProject(project, path))) {
-            return new FitnesseSuitePage(project, path.append("content.txt").toString());
+            return new FitnesseSuitePage(project, path.toString());
         }
         return null;
     }
@@ -136,7 +136,7 @@ public class FitnesseModel implements IFitnesseModel, Serializable {
     @Override
     public IFitnesseTestPage getTestPage(IProject project, IPath path) {
         if (getProjectTestPages(project).contains(fileRelativeToProject(project, path))) {
-            return new FitnesseTestPage(project, path.append("content.txt").toString());
+            return new FitnesseTestPage(project, path.toString());
         }
         return null;
     }
@@ -156,7 +156,7 @@ public class FitnesseModel implements IFitnesseModel, Serializable {
     @Override
     public IFitnesseStaticPage getStaticPage(IProject project, IPath path) {
         if (getProjectStaticPages(project).contains(fileRelativeToProject(project, path))) {
-            return new FitnesseStaticPage(project, path.append("content.txt").toString());
+            return new FitnesseStaticPage(project, path.toString());
         }
         return null;
     }
@@ -199,7 +199,8 @@ public class FitnesseModel implements IFitnesseModel, Serializable {
         try {
             new ObjectOutputStream(new FileOutputStream(fitnessModelFile())).writeObject(model);
         } catch (IOException e) {
-            throw new CoreException(new Status(IStatus.ERROR, FitnesseEclipseCore.PLUGIN_ID, -1, "Failed to store model", e));
+            throw new CoreException(new Status(IStatus.ERROR, FitnesseEclipseCore.PLUGIN_ID, -1,
+                    "Failed to store model", e));
         }
     }
 

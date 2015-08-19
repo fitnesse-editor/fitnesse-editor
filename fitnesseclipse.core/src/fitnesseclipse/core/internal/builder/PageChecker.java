@@ -30,23 +30,29 @@ public class PageChecker {
             return;
         }
 
-        try {
+        try (BufferedReader reader = new BufferedReader(new FileReader(resource.getRawLocation().toFile()))) {
             int read = 1;
             int chars = 0;
             String line;
-            BufferedReader reader = new BufferedReader(new FileReader(resource.getRawLocation().toFile()));
             boolean withinDefine = false;
             while ((line = reader.readLine()) != null) {
-                if (line.startsWith("!define")) {
+                // TODO probably not the nicest way to handle this, can do a better job once the grappa parser is ready
+                if (line.startsWith("!define") || line.startsWith("!define")) {
                     withinDefine = true;
                 }
-                if (line.endsWith("}") || line.endsWith(")")) {
+                if (withinDefine && (line.endsWith("}") || line.endsWith(")"))) {
                     withinDefine = false;
+                    chars += System.lineSeparator().length() + line.length();
+                    read++;
                     continue;
                 }
                 if (!withinDefine && line.startsWith(INCLUDE)) {
                     String page = line.substring(INCLUDE.length());
                     if (page.startsWith("-seamless ")) {
+                        page = page.substring(10);
+                    } else if (page.startsWith("-setup ")) {
+                        page = page.substring(7);
+                    } else if (page.startsWith("-teardown ")) {
                         page = page.substring(10);
                     } else if (page.startsWith("-c ")) {
                         page = page.substring(3);
@@ -68,8 +74,11 @@ public class PageChecker {
                             }
                         }
                     } else if (page.startsWith(">")) {
-                        // not implemented
-                        return;
+                        // not implemented just skip over for now
+
+                        chars += System.lineSeparator().length() + line.length();
+                        read++;
+                        continue;
                     } else {
                         path = resource.getProjectRelativePath().removeLastSegments(2).addTrailingSeparator()
                                 .append(page.replaceAll("\\.", "/"));
@@ -79,8 +88,8 @@ public class PageChecker {
                     IFile file = project.getFile(path);
                     if (!file.exists()) {
                         IMarker marker = resource.createMarker(FitnesseEclipseCore.MARKER_TYPE);
-                        marker.setAttribute(IMarker.MESSAGE, "page (" + file.getProjectRelativePath().toString()
-                                + ") does not exist");
+                        marker.setAttribute(IMarker.MESSAGE,
+                                "page (" + file.getProjectRelativePath().toString() + ") does not exist");
                         marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);
                         marker.setAttribute(IMarker.CHAR_START, chars + INCLUDE.length());
                         marker.setAttribute(IMarker.CHAR_END, chars + line.length());
@@ -88,10 +97,9 @@ public class PageChecker {
                         marker.setAttribute("page", file.getProjectRelativePath().toString());
                     }
                 }
-                chars += line.length() + System.lineSeparator().length();
+                chars += System.lineSeparator().length() + line.length();
                 read++;
             }
-            reader.close();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

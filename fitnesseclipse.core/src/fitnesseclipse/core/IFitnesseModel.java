@@ -9,6 +9,8 @@ import org.eclipse.core.runtime.IPath;
 
 public interface IFitnesseModel {
 
+    public abstract void reindex() throws CoreException;
+
     public abstract void setFitnesseRoot(String root) throws CoreException;
 
     public abstract String getFitnesseRoot();

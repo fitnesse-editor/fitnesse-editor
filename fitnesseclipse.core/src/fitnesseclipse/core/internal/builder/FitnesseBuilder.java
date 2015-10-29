@@ -28,6 +28,10 @@ public class FitnesseBuilder extends IncrementalProjectBuilder {
         // incrementalBuild(delta, monitor);
         // }
         // }
+
+        // reindex
+        FitnesseEclipseCore.getFiteditCore().getModel().reindex();
+
         return null;
     }
 
@@ -38,9 +42,8 @@ public class FitnesseBuilder extends IncrementalProjectBuilder {
 
     protected void fullBuild(final IProgressMonitor monitor) throws CoreException {
         try {
-            getProject()
-            .accept(new DefaultResourceVisitor(FitnesseEclipseCore.getFiteditCore().getModel().getFitnesseRoot(),
-                    getProject()));
+            getProject().accept(new DefaultResourceVisitor(
+                    FitnesseEclipseCore.getFiteditCore().getModel().getFitnesseRoot(), getProject()));
         } catch (CoreException e) {
         }
     }

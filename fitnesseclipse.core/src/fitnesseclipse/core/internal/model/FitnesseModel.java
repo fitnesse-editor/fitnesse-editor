@@ -199,8 +199,8 @@ public class FitnesseModel implements IFitnesseModel, Serializable {
         try {
             new ObjectOutputStream(new FileOutputStream(fitnessModelFile())).writeObject(model);
         } catch (IOException e) {
-            throw new CoreException(new Status(IStatus.ERROR, FitnesseEclipseCore.PLUGIN_ID, -1,
-                    "Failed to store model", e));
+            throw new CoreException(
+                    new Status(IStatus.ERROR, FitnesseEclipseCore.PLUGIN_ID, -1, "Failed to store model", e));
         }
     }
 
@@ -210,7 +210,8 @@ public class FitnesseModel implements IFitnesseModel, Serializable {
         reindex();
     }
 
-    private void reindex() throws CoreException {
+    @Override
+    public void reindex() throws CoreException {
         tests.clear();
         statics.clear();
         suites.clear();
